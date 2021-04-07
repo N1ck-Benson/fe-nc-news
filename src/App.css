@@ -12,11 +12,35 @@ h1 {
   margin: 0;
 }
 
-.articles-sections-container {
+main {
   display: grid;
+  grid-template-columns: 100vw;
 }
 
 .articles-section {
   grid-area: auto;
+  display: grid;
+  grid-template-rows: 50px auto;
+}
+
+.articles-header {
+  grid-row: 1;
+  justify-content: space-between;
+  align-items: center;
+  /* margin: 10px; */
+  border: 1px solid green;
+}
+
+.articles-header > nav {
+  font-size: smaller;
+}
+
+.article-cards {
+  flex: 0 0 100%;
   display: flex;
+  border: 1px solid green;
+}
+
+.article-card {
+  flex: auto;
 }

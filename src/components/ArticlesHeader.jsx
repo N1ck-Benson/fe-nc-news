@@ -1,10 +1,12 @@
 import React from 'react';
 
-const ArticlesHeader = () => {
+const ArticlesHeader = (params) => {
+  const { sectionYear } = params;
   return (
-    <div>
-      Hi from the ArticlesHeader
-    </div>
+    <header className="articles-header">
+      <h2>{sectionYear}</h2>
+      <nav>Order by: [criteria]</nav>
+    </header>
   );
 };
 

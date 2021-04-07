@@ -7,7 +7,7 @@ import '../App.css'
 class Main extends Component {
   // articleYears currently filled with test years
   state = {
-    articleYears: [2021, 2020, 2019],
+    articleYears: [2020, 2019, 2018],
     topics: [],
   }
 
