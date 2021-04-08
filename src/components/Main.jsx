@@ -6,18 +6,18 @@ import Topics from './Topics'
 import '../App.css'
 
 class Main extends Component {
-  // articlesByYear is currently filled with test articles
+  // Each 'year' of articles is an object inside an array, 
+  // so that the ArticlesSections are rendered in the correct order.
   state = {
-    // each 'year' of articles is an object inside an array, so that the ArticlesSections are rendered in the correct order
     articlesByYear: [],
     topics: [],
+    isLoading: true,
   };
 
   componentDidMount() {
-    // add an isLoading component and key in state
     const {topics} = this.state
     fetchArticles(topics).then(articlesFromApi => {
-      this.setState({articlesByYear: articlesFromApi})
+      this.setState({articlesByYear: articlesFromApi, isLoading: false})
     })
   }
 
@@ -26,18 +26,25 @@ class Main extends Component {
   };
 
   render() {
-    // Needs to render a Router, which routes the Topics section on the path='/topics'
+    // Needs to render a Router, which routes the Topics section on the path '/topics'
 
-    const { articlesByYear } = this.state;
+    const { articlesByYear, isLoading } = this.state;
+
+    // choose a className for a Loading... div based on isLoading
+    // render that div with the className
+    const loadingClass = isLoading ? '': 'isNotLoading'
 
     return (
       <main>
         <Router>
           <Topics path="/topics" />
         </Router>
-        {articlesByYear.map((year) => {
+        <div className={loadingClass}>Loading articles...</div>
+        {
+          articlesByYear.map((year) => {
           return <ArticlesSection articlesObj={year} />;
-        })}
+          })
+        }
       </main>
     );
   }

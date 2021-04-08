@@ -17,6 +17,11 @@ main {
   grid-template-columns: 100vw;
 }
 
+.isNotLoading {
+  display: none;
+  margin-top: 50px;
+}
+
 .articles-section {
   grid-area: auto;
   display: grid;
@@ -39,6 +44,7 @@ main {
   flex: 0 0 100%;
   display: flex;
   justify-content: space-evenly;
+  flex-wrap: wrap;
 }
 
 .article-card {
@@ -46,7 +52,8 @@ main {
   display: flex;
   flex-direction: column;
   border-radius: 10%;
-  margin: 0;
+  margin: 10px;
+  height: 180px;
   border: 1px solid green;
 }
 
