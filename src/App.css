@@ -8,6 +8,12 @@ header {
   align-items: baseline;
 }
 
+.header-link {
+  text-decoration: none;
+  color: black;
+  padding: 0 10px 0 10px
+}
+
 h1 {
   margin: 0;
 }
@@ -20,6 +26,14 @@ main {
 .isNotLoading {
   display: none;
   margin-top: 50px;
+}
+
+.topics-section {
+  grid-area: auto;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  height: 120px;
 }
 
 .articles-section {

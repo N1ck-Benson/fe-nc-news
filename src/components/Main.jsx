@@ -6,11 +6,13 @@ import Topics from './Topics'
 import '../App.css'
 
 class Main extends Component {
-  // Each 'year' of articles is an object inside an array, 
-  // so that the ArticlesSections are rendered in the correct order.
+  /* 
+  Each 'year' of articles is an object inside an array, 
+  so that the ArticlesSections are rendered in the correct order.
+  */
   state = {
     articlesByYear: [],
-    topics: [],
+    topics: ['football', 'coding'],
     isLoading: true,
   };
 
@@ -21,23 +23,30 @@ class Main extends Component {
     })
   }
 
+  getTopicsFromArticles = () => {
+    const {articlesByYear} = this.state
+    const uniqueTopics = []
+    articlesByYear.forEach(yearOfArticles => {
+      yearOfArticles.forEach(article => {
+        if(uniqueTopics.indexOf(article.topic) < 0){
+          uniqueTopics.push(article.topic)
+        }
+      })
+    })
+    return uniqueTopics
+  }
+
   updateTopics = () => {
     // invoked in TopicsSection component
   };
 
   render() {
-    // Needs to render a Router, which routes the Topics section on the path '/topics'
-
-    const { articlesByYear, isLoading } = this.state;
-
-    // choose a className for a Loading... div based on isLoading
-    // render that div with the className
+    const { isLoading, topics, articlesByYear } = this.state;
     const loadingClass = isLoading ? '': 'isNotLoading'
-
     return (
       <main>
         <Router>
-          <Topics path="/topics" />
+          <Topics path="home/topics" topics={topics} getTopicsFromArticles={this.getTopicsFromArticles} updateTopics={this.updateTopics}/>
         </Router>
         <div className={loadingClass}>Loading articles...</div>
         {
