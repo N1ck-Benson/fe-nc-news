@@ -12,9 +12,8 @@ const ArticleCard = (params) => {
       <em>in</em> {topic}
       <br/>
       </p>
-      <a href="#">
+      {/* wrap glasses icon in a Link tag */}
         👓
-      </a>
       <br/>
       <span className='article-metadata'>
         <p>

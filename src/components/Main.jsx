@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import { Router } from "@reach/router";
-import { fetchArticlesByYear } from '../utils/utils'
+import { fetchArticles } from '../api';
 import ArticlesSection from './ArticlesSection'
 import Topics from './Topics'
 import '../App.css'
@@ -14,9 +14,10 @@ class Main extends Component {
   };
 
   componentDidMount() {
+    // add an isLoading component and key in state
     const {topics} = this.state
-    fetchArticlesByYear(topics).then(articles => {
-      this.setState({articlesByYear: articles})
+    fetchArticles(topics).then(articlesFromApi => {
+      this.setState({articlesByYear: articlesFromApi})
     })
   }
 
