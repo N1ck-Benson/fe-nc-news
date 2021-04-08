@@ -21,14 +21,14 @@ main {
   grid-area: auto;
   display: grid;
   grid-template-rows: 50px auto;
+  grid-template-columns: 100vw;
 }
 
 .articles-header {
   grid-row: 1;
   justify-content: space-between;
   align-items: center;
-  /* margin: 10px; */
-  border: 1px solid green;
+  border-bottom: 1px solid green;;
 }
 
 .articles-header > nav {
@@ -38,9 +38,30 @@ main {
 .article-cards {
   flex: 0 0 100%;
   display: flex;
-  border: 1px solid green;
+  justify-content: space-evenly;
 }
 
 .article-card {
-  flex: auto;
+  flex: 0 0 40%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10%;
+  margin: 0;
+  border: 1px solid green;
+}
+
+.article-card > h4 {
+  margin: 5px;
+}
+
+.article-card > p {
+  margin-left: 10px;
+  margin-top: 1px;
+  font-size: 0.75em;
+}
+
+.article-metadata {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: baseline;
 }

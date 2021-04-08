@@ -1,38 +1,41 @@
 import { Component } from 'react';
 import { Router } from "@reach/router";
+import { fetchArticlesByYear } from '../utils/utils'
 import ArticlesSection from './ArticlesSection'
 import Topics from './Topics'
 import '../App.css'
 
 class Main extends Component {
-  // articleYears currently filled with test years
+  // articlesByYear is currently filled with test articles
   state = {
-    articleYears: [2020, 2019, 2018],
+    // each 'year' of articles is an object inside an array, so that the ArticlesSections are rendered in the correct order
+    articlesByYear: [],
     topics: [],
-  }
+  };
 
-  componentDidMount(){
-    // sets state, fetching articleYears from API
-    // and using a utils function to get all the years
+  componentDidMount() {
+    const {topics} = this.state
+    fetchArticlesByYear(topics).then(articles => {
+      this.setState({articlesByYear: articles})
+    })
   }
 
   updateTopics = () => {
     // invoked in TopicsSection component
-  }
+  };
 
-  // renders a section, which renders an ArticlesSection for each year
-  // Then renders a Router, which routes the Topics section on the path='/topics'
+  render() {
+    // Needs to render a Router, which routes the Topics section on the path='/topics'
 
-  render(){
-    const {articleYears} = this.state
+    const { articlesByYear } = this.state;
+
     return (
-      // want to do forEach and make ArticlesSections here
       <main>
         <Router>
           <Topics path="/topics" />
         </Router>
-        {articleYears.map((year) => {
-          return <ArticlesSection sectionYear={year} />;
+        {articlesByYear.map((year) => {
+          return <ArticlesSection articlesObj={year} />;
         })}
       </main>
     );
