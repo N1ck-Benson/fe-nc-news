@@ -27,7 +27,8 @@ class Main extends Component {
     const {articlesByYear} = this.state
     const uniqueTopics = []
     articlesByYear.forEach(yearOfArticles => {
-      yearOfArticles.forEach(article => {
+      const articlesFromYear = Object.values(yearOfArticles).flat()
+      articlesFromYear.forEach(article => {
         if(uniqueTopics.indexOf(article.topic) < 0){
           uniqueTopics.push(article.topic)
         }
@@ -36,8 +37,13 @@ class Main extends Component {
     return uniqueTopics
   }
 
-  updateTopics = () => {
-    // invoked in TopicsSection component
+  updateTopics = (selectedTopics) => {
+    this.setState(currentState => {
+      const {topics} = currentState
+      if(topics.join('') !== selectedTopics.join('')){
+        return {topics: selectedTopics}
+      }
+    })
   };
 
   render() {
@@ -46,7 +52,7 @@ class Main extends Component {
     return (
       <main>
         <Router>
-          <Topics path="home/topics" topics={topics} getTopicsFromArticles={this.getTopicsFromArticles} updateTopics={this.updateTopics}/>
+          <Topics path="home/topics" topicsInState={topics} getTopicsFromArticles={this.getTopicsFromArticles} updateTopics={this.updateTopics}/>
         </Router>
         <div className={loadingClass}>Loading articles...</div>
         {

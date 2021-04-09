@@ -1,15 +1,36 @@
 import React from 'react';
 
-const Topics = (topicsInState, getTopicsFromArticles, updateTopicsInState) => {
-  // flex section contains a form (display: flex) of checkBox inputs
-  const topics = getTopicsFromArticles()
+const Topics = (params) => {
+  const { getTopicsFromArticles, updateTopics } = params
+  const topicsFromArticles = getTopicsFromArticles()
+  
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    const selectedTopics = []
+    const {inputSpans} = event.target.childNodes
+    inputSpans.forEach(inputSpan => {
+      const input = inputSpan.childNodes[0] 
+      if(input.checked){selectedTopics.push(input.value)}
+    })
+    updateTopics(selectedTopics)
+  }
+
   return (
-    <section className='topics-section'>
-      <form action="">
-        {topics.map(topic => {
-          return <input value={topic} type="checkBox"/>
+    <section className="topics-section">
+      <form onSubmit={handleSubmit}>
+        <span className="topic-radio">
+          <input type="radio" value='all' id='all' />
+          <label for='all'>all topics</label>
+        </span>
+        {topicsFromArticles.map((topic) => {
+          return (
+            <span className="topic-radio">
+              <input type="radio" value={topic} id={topic} />
+              <label for={topic}>{topic}</label>
+            </span>
+          );
         })}
-        <button type='submit'>Filter</button>
+        <button type="submit">Filter</button>
       </form>
     </section>
   );
