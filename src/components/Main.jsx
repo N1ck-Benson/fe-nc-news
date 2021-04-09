@@ -1,9 +1,9 @@
 import { Component } from 'react';
 import { Router } from "@reach/router";
 import { fetchArticles } from '../api';
-import ArticlesSection from './ArticlesSection'
-import Topics from './Topics'
-import '../App.css'
+import Home from './Home';
+import ArticlePage from './ArticlePage';
+import '../App.css';
 
 class Main extends Component {
   /* 
@@ -71,14 +71,9 @@ class Main extends Component {
     return (
       <main>
         <Router>
-          <Topics path="home/topics" filtersToDisplay={filtersToDisplay} updateTopics={this.updateTopics}/>
+          <Home path='home/*' isLoading={isLoading} filtersToDisplay={filtersToDisplay} articlesByYear={articlesByYear} loadingClass={loadingClass} updateTopics={this.updateTopics} />
+          <ArticlePage path='articles/:article_id' />
         </Router>
-        <div className={loadingClass}>Loading articles...</div>
-        {
-          articlesByYear.map((year) => {
-            return <ArticlesSection articlesObj={year} key={Object.keys(year).join('')}/>;
-          })
-        }
       </main>
     );
   }

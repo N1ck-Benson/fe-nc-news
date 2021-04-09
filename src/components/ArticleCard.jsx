@@ -1,7 +1,8 @@
 import React from 'react';
+import {Link} from '@reach/router'
 
 const ArticleCard = (params) => {
-  const {article: {title, author, topic, votes}, key} = params
+  const {article: {title, author, topic, votes, article_id}, key} = params
   const commentCount = params.article.comment_count
   return (
     <figure className="article-card" key={key}>
@@ -12,8 +13,9 @@ const ArticleCard = (params) => {
       <em>in</em> {topic}
       <br/>
       </p>
-      {/* wrap glasses icon in a Link tag */}
+      <Link to={`/articles/${article_id}`}>
         👓
+      </Link>
       <br/>
       <span className='article-metadata'>
         <p>
