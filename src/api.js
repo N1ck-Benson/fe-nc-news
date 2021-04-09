@@ -7,7 +7,6 @@ const instance = axios.create({
 
 export const fetchArticles = (topics) => {
   let articlesPath = '/articles'
-  console.log(topics, "topics in api.js")
   if(topics[0] !== 'all'){
     const queryString = `?filter[topic]=${topics[0]}`
     articlesPath += queryString
@@ -17,3 +16,13 @@ export const fetchArticles = (topics) => {
     return getArticlesByYear(articles)
   });
 };
+
+export const fetchArticleAndComments = (article_id) => {
+  return instance.get(`/articles/${article_id}`).then(article => {
+    const resObject = {}
+    resObject.resArticle = article
+    return instance.get(`/articles/${article_id}/comments`).then(comments => {
+      resObject.resComments = comments
+    }).then(??????????)
+  })
+}

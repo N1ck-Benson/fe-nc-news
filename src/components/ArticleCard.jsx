@@ -2,8 +2,7 @@ import React from 'react';
 import {Link} from '@reach/router'
 
 const ArticleCard = (params) => {
-  const {article: {title, author, topic, votes, article_id}, key} = params
-  const commentCount = params.article.comment_count
+  const {article: {title, author, topic, votes, article_id, comment_count}, key} = params
   return (
     <figure className="article-card" key={key}>
       <h4>{title}</h4>

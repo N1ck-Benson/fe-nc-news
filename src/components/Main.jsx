@@ -22,7 +22,6 @@ class Main extends Component {
     const {topics} = this.state
     fetchArticles(topics).then(articlesFromApi => {
       const newFiltersToDisplay = this.getTopicsFromArticles(articlesFromApi)
-      console.log('new filters in main CDM: ', newFiltersToDisplay)
       this.setState({articlesByYear: articlesFromApi, filtersToDisplay: newFiltersToDisplay, isLoading: false})
     })
   }
@@ -30,10 +29,8 @@ class Main extends Component {
   componentDidUpdate(prevProps, prevState) {
     const newTopics = this.state.topics
     if(prevState.topics.join('') !== newTopics.join('')){
-      console.log('change detected by cDU')
       fetchArticles(newTopics).then(articlesFromApi => {
         const newFiltersToDisplay = this.getTopicsFromArticles(articlesFromApi);
-        console.log(newFiltersToDisplay, "new filters for state")
         this.setState({
           articlesByYear: articlesFromApi,
           filtersToDisplay: newFiltersToDisplay,
