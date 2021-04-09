@@ -10,9 +10,10 @@ class Main extends Component {
   Each 'year' of articles is an object inside an array, 
   so that the ArticlesSections are rendered in the correct order.
   */
+  // Topics is an array, but currently users can only select one topic 
   state = {
     articlesByYear: [],
-    topics: ['football', 'coding'],
+    topics: [],
     isLoading: true,
   };
 
@@ -57,7 +58,9 @@ class Main extends Component {
         <div className={loadingClass}>Loading articles...</div>
         {
           articlesByYear.map((year) => {
-          return <ArticlesSection articlesObj={year} />;
+            const key = Object.keys(year).join('')
+            console.log(key, 'key of artsec')
+            return <ArticlesSection articlesObj={year} key={key}/>;
           })
         }
       </main>

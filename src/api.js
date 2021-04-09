@@ -6,8 +6,13 @@ const instance = axios.create({
 });
 
 export const fetchArticles = (topics) => {
-  return instance.get('/articles').then(({data: {articles}}) => {
-    console.log(getArticlesByYear(articles))
+  let articlesPath = '/articles'
+  if(topics.length){
+    const queryString = `?topic=${topics[0]}`
+    articlesPath += queryString
+  }
+  return instance.get(articlesPath).then(({data: {articles}}) => {
+    // getArticlesByYear converts response into an array of year:arr objects
     return getArticlesByYear(articles)
   });
 };

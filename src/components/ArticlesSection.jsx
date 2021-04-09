@@ -9,9 +9,9 @@ const ArticlesSection = (props) => {
 
   return (
     <section className="articles-section">
-        <ArticlesHeader sectionYear={sectionYear} />
-        <ArticleCards articles={articles} />
-      </section>
+      <ArticlesHeader sectionYear={sectionYear} />
+      <ArticleCards sectionYear={sectionYear} articles={articles} />
+    </section>
   );
 };
 
