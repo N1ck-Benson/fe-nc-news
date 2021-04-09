@@ -7,12 +7,14 @@ const instance = axios.create({
 
 export const fetchArticles = (topics) => {
   let articlesPath = '/articles'
-  if(topics.length){
-    const queryString = `?topic=${topics[0]}`
+  console.log(topics, "topics in api.js")
+  if(topics[0] !== 'all'){
+    const queryString = `?filter[topic]=${topics[0]}`
     articlesPath += queryString
   }
   return instance.get(articlesPath).then(({data: {articles}}) => {
     // getArticlesByYear converts response into an array of year:arr objects
+    console.log('artsByYear from api.js: ', getArticlesByYear(articles));
     return getArticlesByYear(articles)
   });
 };

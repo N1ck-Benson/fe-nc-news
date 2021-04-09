@@ -1,10 +1,10 @@
 import React from 'react';
 
 const ArticleCard = (params) => {
-  const {article: {title, author, topic, votes}} = params
+  const {article: {title, author, topic, votes}, key} = params
   const commentCount = params.article.comment_count
   return (
-    <figure className="article-card">
+    <figure className="article-card" key={key}>
       <h4>{title}</h4>
       <p>
       <em>by</em> {author}

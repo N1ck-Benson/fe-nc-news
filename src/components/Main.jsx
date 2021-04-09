@@ -13,15 +13,33 @@ class Main extends Component {
   // Topics is an array, but currently users can only select one topic 
   state = {
     articlesByYear: [],
-    topics: [],
+    topics: ['all'],
+    filtersToDisplay: [],
     isLoading: true,
   };
 
   componentDidMount() {
     const {topics} = this.state
     fetchArticles(topics).then(articlesFromApi => {
-      this.setState({articlesByYear: articlesFromApi, isLoading: false})
+      const newFiltersToDisplay = this.getTopicsFromArticles(articlesFromApi)
+      this.setState({articlesByYear: articlesFromApi, filtersToDisplay: newFiltersToDisplay, isLoading: false})
     })
+  }
+  
+  componentDidUpdate(prevProps, prevState) {
+    console.log('componentDidUpdate was invoked')
+    console.log("prevState: ", prevState, "this state: ", this.state.topics)
+    const newTopics = this.state.topics
+    if(prevState.topics.join('') !== newTopics.join('')){
+      console.log('change detected by cDU')
+      fetchArticles(newTopics).then(articlesFromApi => {
+        const newFiltersToDisplay = this.getTopicsFromArticles(articlesFromApi);
+        this.setState({
+          articlesByYear: articlesFromApi,
+          filtersToDisplay: newFiltersToDisplay,
+        });
+      });
+    }  
   }
 
   getTopicsFromArticles = () => {
@@ -58,9 +76,7 @@ class Main extends Component {
         <div className={loadingClass}>Loading articles...</div>
         {
           articlesByYear.map((year) => {
-            const key = Object.keys(year).join('')
-            console.log(key, 'key of artsec')
-            return <ArticlesSection articlesObj={year} key={key}/>;
+            return <ArticlesSection articlesObj={year} key={Object.keys(year).join('')}/>;
           })
         }
       </main>

@@ -1,3 +1,6 @@
+
+/*===== COMPONENT NOT CURRENTLY IN USE =====*/
+
 import React from 'react';
 import ArticlesSection from './ArticlesSection';
 

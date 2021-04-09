@@ -6,11 +6,12 @@ import "../App.css";
 const ArticlesSection = (props) => {
   const sectionYear = Object.keys(props.articlesObj)[0]
   const articles = Object.values(props.articlesObj)[0]
+  const {key} = props
 
   return (
-    <section className="articles-section">
+    <section className="articles-section" key={key}>
       <ArticlesHeader sectionYear={sectionYear} />
-      <ArticleCards sectionYear={sectionYear} articles={articles} />
+      <ArticleCards articles={articles} />
     </section>
   );
 };

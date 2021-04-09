@@ -21,8 +21,8 @@ const Topics = (params) => {
     <section className="topics-section">
       <form onSubmit={handleSubmit}>
         <span className="topic-radio">
-          <input type='radio' value='all' id='all' name='radio'/>
-          <label for='all'>all topics</label>
+          <input type='radio' value='' id='all' name='radio'/>
+          <label htmlFor='all'>all topics</label>
         </span>
         {topicsFromArticles.map((topic) => {
           return (
@@ -33,7 +33,7 @@ const Topics = (params) => {
                 id={topic}
                 name="radio"
               />
-              <label for={topic}>{topic}</label>
+              <label htmlFor={topic}>{topic}</label>
             </span>
           );
         })}
