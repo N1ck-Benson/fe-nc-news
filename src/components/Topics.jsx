@@ -1,8 +1,7 @@
 import React from 'react';
 
 const Topics = (params) => {
-  const { getTopicsFromArticles, updateTopics } = params
-  const topicsFromArticles = getTopicsFromArticles()
+  const { updateTopics, filtersToDisplay } = params
   
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -21,19 +20,19 @@ const Topics = (params) => {
     <section className="topics-section">
       <form onSubmit={handleSubmit}>
         <span className="topic-radio">
-          <input type='radio' value='' id='all' name='radio'/>
-          <label htmlFor='all'>all topics</label>
+          <input type='radio' value='all' id='all' name='radio'/>
+          <label htmlFor='all'>all</label>
         </span>
-        {topicsFromArticles.map((topic) => {
+        {filtersToDisplay.map((filter) => {
           return (
-            <span className="topic-radio">
+            <span className="filter-radio">
               <input
                 type="radio"
-                value={topic}
-                id={topic}
+                value={filter}
+                id={filter}
                 name="radio"
               />
-              <label htmlFor={topic}>{topic}</label>
+              <label htmlFor={filter}>{filter}</label>
             </span>
           );
         })}

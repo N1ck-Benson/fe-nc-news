@@ -14,7 +14,6 @@ export const fetchArticles = (topics) => {
   }
   return instance.get(articlesPath).then(({data: {articles}}) => {
     // getArticlesByYear converts response into an array of year:arr objects
-    console.log('artsByYear from api.js: ', getArticlesByYear(articles));
     return getArticlesByYear(articles)
   });
 };

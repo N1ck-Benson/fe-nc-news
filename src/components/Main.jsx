@@ -22,18 +22,18 @@ class Main extends Component {
     const {topics} = this.state
     fetchArticles(topics).then(articlesFromApi => {
       const newFiltersToDisplay = this.getTopicsFromArticles(articlesFromApi)
+      console.log('new filters in main CDM: ', newFiltersToDisplay)
       this.setState({articlesByYear: articlesFromApi, filtersToDisplay: newFiltersToDisplay, isLoading: false})
     })
   }
   
   componentDidUpdate(prevProps, prevState) {
-    console.log('componentDidUpdate was invoked')
-    console.log("prevState: ", prevState, "this state: ", this.state.topics)
     const newTopics = this.state.topics
     if(prevState.topics.join('') !== newTopics.join('')){
       console.log('change detected by cDU')
       fetchArticles(newTopics).then(articlesFromApi => {
         const newFiltersToDisplay = this.getTopicsFromArticles(articlesFromApi);
+        console.log(newFiltersToDisplay, "new filters for state")
         this.setState({
           articlesByYear: articlesFromApi,
           filtersToDisplay: newFiltersToDisplay,
@@ -42,8 +42,8 @@ class Main extends Component {
     }  
   }
 
-  getTopicsFromArticles = () => {
-    const {articlesByYear} = this.state
+  getTopicsFromArticles = (articlesFromApi) => {
+    const articlesByYear = articlesFromApi;
     const uniqueTopics = []
     articlesByYear.forEach(yearOfArticles => {
       const articlesFromYear = Object.values(yearOfArticles).flat()
@@ -66,12 +66,12 @@ class Main extends Component {
   };
 
   render() {
-    const { isLoading, topics, articlesByYear } = this.state;
+    const { isLoading, filtersToDisplay, articlesByYear } = this.state;
     const loadingClass = isLoading ? '': 'isNotLoading'
     return (
       <main>
         <Router>
-          <Topics path="home/topics" topicsInState={topics} getTopicsFromArticles={this.getTopicsFromArticles} updateTopics={this.updateTopics}/>
+          <Topics path="home/topics" filtersToDisplay={filtersToDisplay} updateTopics={this.updateTopics}/>
         </Router>
         <div className={loadingClass}>Loading articles...</div>
         {
