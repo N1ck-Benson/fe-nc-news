@@ -18,11 +18,12 @@ export const fetchArticles = (topics) => {
 };
 
 export const fetchArticleAndComments = (article_id) => {
-  return instance.get(`/articles/${article_id}`).then(article => {
-    const resObject = {}
-    resObject.resArticle = article
-    return instance.get(`/articles/${article_id}/comments`).then(comments => {
-      resObject.resComments = comments
-    }).then(??????????)
+  const resObject = {}
+  return instance.get(`/articles/${article_id}`).then(res => {
+    resObject.resArticle = res.data.article
+    return instance.get(`/articles/${article_id}/comments`).then(res => {
+      resObject.resComments = res.data.comments
+      return resObject
+    })
   })
 }

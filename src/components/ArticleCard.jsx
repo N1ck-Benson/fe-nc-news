@@ -19,7 +19,7 @@ const ArticleCard = (params) => {
       <span className='article-metadata'>
         <p>
       👏 {votes}
-      💬 {commentCount}
+      💬 {comment_count}
         </p>
       </span>
     </figure>

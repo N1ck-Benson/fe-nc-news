@@ -4,7 +4,9 @@ import {Link} from '@reach/router'
 const HomeHeader = () => {
   return (
     <header>
+      <Link to="/home" className="header-link">
       <h1>NC News</h1>
+      </Link>
       <nav>
         <Link to="/home" className="header-link">
           Home
