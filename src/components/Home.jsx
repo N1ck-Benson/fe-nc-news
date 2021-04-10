@@ -18,8 +18,7 @@ const Home = (props) => {
       {articlesByYear.map((year) => {
         return (
           <ArticlesSection
-            articlesObj={year}
-            key={Object.keys(year).join("")}
+            articlesObj={year} key={Object.keys(year).join("")}
           />
         );
       })}
