@@ -27,10 +27,10 @@ export const fetchArticleAndComments = (article_id) => {
   })
 }
 
-// the contents of the patch request body is controlled
-// patching votes should only throw an error if the article was deleted
-// between the article being displayed to the client and now
-// --> this will be reflected on page refresh
+// The contents of the patch request body is controlled
+// Patching votes should only throw an error if the article was deleted
+  // between the article being displayed to the client and now
+  // --> this would be reflected on page refresh
 export const incrementVotes = (article_id) => {
   return instance.patch(`/articles/${article_id}`).send({inc_votes: 1})
 }
