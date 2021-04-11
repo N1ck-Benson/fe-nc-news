@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {fetchArticleAndComments} from '../api';
+import {incrementVotes} from '../api';
 
 class ArticlePage extends Component {
   state = {
@@ -25,15 +26,18 @@ class ArticlePage extends Component {
     console.log(event, "event in form handleSubmit");
   };
 
-  handleClick = () => {
-    // patch votes for this article up by one
-    // increment newVotes
-    console.log("inside handleClick in articlePage-clap");
+  handleClick = (event) => {
+    const {id} = event.target
+    // api function returning 400 'bad request'
+    incrementVotes(id);
+    this.setState((currentState) => {
+      return { newVotes: currentState.newVotes + 1 };
+    });
   };
 
   render() {
     const {
-      article: { title, author, topic, body, votes, comment_count },
+      article: { title, author, topic, body, article_id, votes, comment_count },
       comments,
     } = this.state;
     return (
@@ -50,7 +54,7 @@ class ArticlePage extends Component {
           <p>{body}</p>
           <span className="article-metadata">
             <p>
-              <button onClick={this.handleClick}>👏</button>{votes}
+              <button onClick={this.handleClick} id={article_id}>👏</button>{votes}
               <span>💬 {comment_count}</span>
             </p>
           </span>
@@ -61,19 +65,18 @@ class ArticlePage extends Component {
         </form>
         <section className="comments-section">
           {comments.map((comment) => {
-            const { author, votes, created_at, body, comment_id } = comment;
+            const { author, created_at, body, comment_id } = comment;
             // conditionally render 'other-users-comments' and 'this-users-comments'
             return (
-              <div className="other-users-comments" key={comment_id}>
+              <div
+                className="other-users-comments"
+                key={`comment_${comment_id}`}
+              >
                 <p>
                   <span>{created_at}</span>
                   <span>{author}</span>
                 </p>
                 <p>{body}</p>
-                <p>
-                  <button onClick={this.handleClick}>👏</button>
-                  {votes}
-                </p>
               </div>
             );
           })}

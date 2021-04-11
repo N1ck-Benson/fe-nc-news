@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import {Link} from '@reach/router'
+import {Link} from '@reach/router';
+import {incrementVotes} from '../api';
 
 class ArticleCard extends Component {
 
@@ -8,9 +9,12 @@ class ArticleCard extends Component {
   }
 
   handleClick = (event) => {
-    // patch votes for this article up by one
-    // increment newVotes
-    console.log(event, 'click event in articleCard-clap')
+    const { id } = event.target;
+    // api function returning 400 'bad request'
+    incrementVotes(id);
+    this.setState((currentState) => {
+      return { newVotes: currentState.newVotes + 1 };
+    });
   }
 
   render() {
@@ -28,7 +32,7 @@ class ArticleCard extends Component {
         <br />
         <span className="article-metadata">
           <p>
-            <button onClick={this.handleClick}>👏</button>
+            <button onClick={this.handleClick} id={article_id}>👏</button>
             {votes}
             <Link to={`/articles/${article_id}#comment-box`}>💬</Link>
             {comment_count}

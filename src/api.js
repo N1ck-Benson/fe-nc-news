@@ -12,7 +12,6 @@ export const fetchArticles = (topics) => {
     articlesPath += queryString
   }
   return instance.get(articlesPath).then(({data: {articles}}) => {
-    // getArticlesByYear converts response into an array of year:arr objects
     return getArticlesByYear(articles)
   });
 };
@@ -26,4 +25,12 @@ export const fetchArticleAndComments = (article_id) => {
       return resObject
     })
   })
+}
+
+// the contents of the patch request body is controlled
+// patching votes should only throw an error if the article was deleted
+// between the article being displayed to the client and now
+// --> this will be reflected on page refresh
+export const incrementVotes = (article_id) => {
+  return instance.patch(`/articles/${article_id}`).send({inc_votes: 1})
 }
