@@ -32,5 +32,6 @@ export const fetchArticleAndComments = (article_id) => {
   // between the article being displayed to the client and now
   // --> this would be reflected on page refresh
 export const incrementVotes = (article_id) => {
-  return instance.patch(`/articles/${article_id}`).send({inc_votes: 1})
+  return instance.patch(`/articles/${article_id}`, {inc_votes: 1});
 }
+

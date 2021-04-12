@@ -6,6 +6,7 @@ class ArticlePage extends Component {
   state = {
     article: {},
     comments: [],
+    newVotes: 0,
     isLoading: "true",
   };
 
@@ -18,7 +19,7 @@ class ArticlePage extends Component {
   };
 
   handleSubmit = (event) => {
-    event.preventDefault()
+    event.preventDefault();
     // get everything required for the POST request off the event
     // make the POST request
     // if res is a-ok, setState with currentState.comments PLUS this comment, else give an error message
@@ -27,8 +28,7 @@ class ArticlePage extends Component {
   };
 
   handleClick = (event) => {
-    const {id} = event.target
-    // api function returning 400 'bad request'
+    const { id } = event.target;
     incrementVotes(id);
     this.setState((currentState) => {
       return { newVotes: currentState.newVotes + 1 };
@@ -37,9 +37,11 @@ class ArticlePage extends Component {
 
   render() {
     const {
-      article: { title, author, topic, body, article_id, votes, comment_count },
+      article: { title, author, topic, body, article_id, comment_count },
       comments,
     } = this.state;
+    let {article: {votes}} = this.state
+    votes += this.state.newVotes
     return (
       <main className="article-page">
         <article>
@@ -54,7 +56,10 @@ class ArticlePage extends Component {
           <p>{body}</p>
           <span className="article-metadata">
             <p>
-              <button onClick={this.handleClick} id={article_id}>👏</button>{votes}
+              <button onClick={this.handleClick} id={article_id}>
+                👏
+              </button>
+              {votes}
               <span>💬 {comment_count}</span>
             </p>
           </span>
