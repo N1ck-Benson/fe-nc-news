@@ -83,6 +83,7 @@ class ArticlePage extends Component {
           <input type="text" />
           <input type="submit" value="Post" />
         </form>
+        <div className={loadingClass}>Loading comments...</div>
         <section className="comments-section">
           {comments.map((comment) => {
             const { author, body, comment_id, created_at } = comment;
