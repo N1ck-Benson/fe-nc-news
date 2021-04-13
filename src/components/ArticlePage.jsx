@@ -1,49 +1,66 @@
 import React, { Component } from 'react';
 import {fetchArticleAndComments} from '../api';
-import {incrementVotes} from '../api';
+import {incrementVotes, postComment} from '../api';
 
 class ArticlePage extends Component {
   state = {
     article: {},
     comments: [],
+    newComment: {},
     newVotes: 0,
-    isLoading: "true",
+    isLoading: true,
+    isLoadingComment: false,
   };
 
   componentDidMount = () => {
     const path = this.props.location.pathname;
     const article_id = path.slice(path.indexOf("/", 1) + 1, path.length);
     fetchArticleAndComments(article_id).then(({ resArticle, resComments }) => {
-      this.setState({ article: resArticle, comments: resComments });
+      this.setState({ article: resArticle, comments: resComments, isLoading: false });
     });
   };
 
+  componentDidUpdate = (prevProps, prevState) => {
+    if(prevState.comments.join('') !== this.state.comments.join('')){
+      this.setState({isLoadingComment: false})
+    }
+  }
+
+  // username is currently hardcoded as 'test-user'
+  // CONTROL THE INPUT - no empty field
   handleSubmit = (event) => {
     event.preventDefault();
-    // get everything required for the POST request off the event
-    // make the POST request
-    // if res is a-ok, setState with currentState.comments PLUS this comment, else give an error message
-    // setting state will trigger an 'optimistic' rendering, which reflects the impact made by the user, but because there's no CDU function, does not reflect the current state of API
-    console.log(event, "event in form handleSubmit");
+    const { value } = event.target.firstChild;
+    const comment = { username: "jessjelly", body: value };
+    const {
+      article: { article_id },
+    } = this.state;
+    postComment(article_id, comment).then((res) => {
+      const newComments = [...this.state.comments]
+      newComments.unshift(res.data.comment)
+      this.setState({ comments: newComments, isLoadingComment: true });
+    });
   };
 
   handleClick = (event) => {
-    const { id } = event.target;
-    incrementVotes(id);
-    this.setState((currentState) => {
+    const { article: {article_id} } = this.state;
+    incrementVotes(article_id);
+    this.setState(currentState => {
       return { newVotes: currentState.newVotes + 1 };
     });
   };
 
   render() {
     const {
-      article: { title, author, topic, body, article_id, comment_count },
+      article: { title, author, topic, body, comment_count },
       comments,
     } = this.state;
-    let {article: {votes}} = this.state
+    let {article: {votes}, isLoading} = this.state
     votes += this.state.newVotes
+    const loadingClass = isLoading ? "" : "isNotLoading";
     return (
       <main className="article-page">
+        <div className={loadingClass}>Loading article...</div>
         <article>
           <h4>{title}</h4>
           <p>
@@ -56,9 +73,7 @@ class ArticlePage extends Component {
           <p>{body}</p>
           <span className="article-metadata">
             <p>
-              <button onClick={this.handleClick} id={article_id}>
-                👏
-              </button>
+              <button onClick={this.handleClick}>👏</button>
               {votes}
               <span>💬 {comment_count}</span>
             </p>
@@ -70,8 +85,10 @@ class ArticlePage extends Component {
         </form>
         <section className="comments-section">
           {comments.map((comment) => {
-            const { author, created_at, body, comment_id } = comment;
+            const { author, body, comment_id, created_at } = comment;
+            
             // conditionally render 'other-users-comments' and 'this-users-comments'
+
             return (
               <div
                 className="other-users-comments"

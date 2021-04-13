@@ -35,3 +35,8 @@ export const incrementVotes = (article_id) => {
   return instance.patch(`/articles/${article_id}`, {inc_votes: 1});
 }
 
+// username is 'test' until login functionality is implemented
+export const postComment = (article_id, comment) => {
+  return instance.post(`/articles/${article_id}/comments`, comment);
+};
+
