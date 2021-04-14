@@ -11,7 +11,6 @@ class Home extends Component {
   state = {
     articlesByYear: [],
     topics: ["all"],
-    filtersToDisplay: [],
     isLoading: true,
   };
 
@@ -31,17 +30,14 @@ class Home extends Component {
     const newTopics = this.state.topics;
     if (prevState.topics.join("") !== newTopics.join("")) {
       fetchArticles(newTopics).then((articlesFromApi) => {
-        const newFiltersToDisplay = this.getTopicsFromArticles(articlesFromApi);
         this.setState({
           articlesByYear: articlesFromApi,
-          filtersToDisplay: newFiltersToDisplay,
         });
       });
     }
   }
 
-  getTopicsFromArticles = (articlesFromApi) => {
-    const articlesByYear = articlesFromApi;
+  getTopicsFromArticles = (articlesByYear) => {
     const uniqueTopics = [];
     articlesByYear.forEach((yearOfArticles) => {
       const articlesFromYear = Object.values(yearOfArticles).flat();
@@ -67,7 +63,6 @@ class Home extends Component {
 
   render() {
     const {
-      filtersToDisplay,
       articlesByYear,
       isLoading
     } = this.state;
@@ -76,9 +71,8 @@ class Home extends Component {
       <main>
         <Router>
           <Topics
-            path="/topics"
-            filtersToDisplay={filtersToDisplay}
-            updateTopics={this.updateTopics}
+            path="/topics" getTopicsFromArticles={this.getTopicsFromArticles}
+            updateTopics={this.updateTopics} articlesByYear={articlesByYear}
           />
         </Router>
         <div className={loadingClass}>Loading articles...</div>
