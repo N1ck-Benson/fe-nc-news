@@ -1,108 +1,34 @@
+import React from 'react';
 import { Router } from "@reach/router";
-import { fetchArticles } from "./api";
+// import { fetchArticles } from "./api";
 import Home from "./components/Home";
 import ArticlePage from "./components/ArticlePage";
 import { Link } from "@reach/router";
 import "./App.css";
 
-import React, { Component } from "react";
 
-class App extends Component {
-  /* 
-  Each 'year' of articles is an object inside an array, 
-  so that the ArticlesSections are rendered in the correct order.
-  */
-  // Topics is an array, but currently users can only select one topic
-  state = {
-    articlesByYear: [],
-    topics: ["all"],
-    filtersToDisplay: [],
-    isLoading: true,
-  };
-
-  componentDidMount() {
-    const { topics } = this.state;
-    fetchArticles(topics).then((articlesFromApi) => {
-      const newFiltersToDisplay = this.getTopicsFromArticles(articlesFromApi);
-      this.setState({
-        articlesByYear: articlesFromApi,
-        filtersToDisplay: newFiltersToDisplay,
-        isLoading: false,
-      });
-    });
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    const newTopics = this.state.topics;
-    if (prevState.topics.join("") !== newTopics.join("")) {
-      fetchArticles(newTopics).then((articlesFromApi) => {
-        const newFiltersToDisplay = this.getTopicsFromArticles(articlesFromApi);
-        this.setState({
-          articlesByYear: articlesFromApi,
-          filtersToDisplay: newFiltersToDisplay,
-        });
-      });
-    }
-  }
-
-  getTopicsFromArticles = (articlesFromApi) => {
-    const articlesByYear = articlesFromApi;
-    const uniqueTopics = [];
-    articlesByYear.forEach((yearOfArticles) => {
-      const articlesFromYear = Object.values(yearOfArticles).flat();
-      articlesFromYear.forEach((article) => {
-        if (uniqueTopics.indexOf(article.topic) < 0) {
-          uniqueTopics.push(article.topic);
-        }
-      });
-    });
-    return uniqueTopics;
-  };
-
-  updateTopics = (selectedTopics) => {
-    this.setState((currentState) => {
-      const { topics } = currentState;
-      if (topics.join("") !== selectedTopics.join("")) {
-        return { topics: selectedTopics };
-      }
-    });
-  };
-
-  updateSortBy = () => {};
-
-  render() {
-    const { isLoading, filtersToDisplay, articlesByYear } = this.state;
-    const loadingClass = isLoading ? "" : "isNotLoading";
-    return (
-      <main className="app">
-        <header>
+const App = () => {
+  return (
+    <main className="app">
+      <header>
+        <Link to="/home" className="header-link">
+          <h1>NC News</h1>
+        </Link>
+        <nav>
           <Link to="/home" className="header-link">
-            <h1>NC News</h1>
+            Home
           </Link>
-          <nav>
-            <Link to="/home" className="header-link">
-              Home
-            </Link>
-            <Link to="/home/topics" className="header-link">
-              Topics
-            </Link>
-          </nav>
-        </header>
-        <Router>
-          <Home
-            path="home/*"
-            isLoading={isLoading}
-            filtersToDisplay={filtersToDisplay}
-            articlesByYear={articlesByYear}
-            loadingClass={loadingClass}
-            updateTopics={this.updateTopics}
-            updateSortBy={this.updateSortBy}
-          />
-          <ArticlePage path="articles/:article_id" />
-        </Router>
-      </main>
-    );
-  }
-}
+          <Link to="/home/topics" className="header-link">
+            Topics
+          </Link>
+        </nav>
+      </header>
+      <Router>
+        <Home path="home/*"/>
+        <ArticlePage path="articles/:article_id" />
+      </Router>
+    </main>
+  );
+};
 
 export default App;

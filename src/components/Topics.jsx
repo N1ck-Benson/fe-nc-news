@@ -1,5 +1,38 @@
 import React from 'react';
 
+// make this a class component
+// state contains filtersToDisplay, assigned in CDM using getTopicsFromArticles
+// pass articlesByYear down on props
+// CHANGE APP TO FUNCTIONAL, HOME TO CLASS
+// move getTopicsFromArticles() in here and get it to set the state
+// don't move updateTopics... make sure this continues to work in App.js
+
+/*
+import React, { Component } from 'react';
+
+class Topics extends Component {
+
+  state = {
+    topicsToDisplay: []
+  }
+
+  componentDidMount = () => {
+    const topics = this.props.getTopicsFromArticles()
+    this.setState({topicsToDisplay: topics})
+  }
+
+  render() {
+    return (
+      <div>
+        
+      </div>
+    );
+  }
+}
+
+export default Topics;
+*/
+
 const Topics = (props) => {
   const { updateTopics, filtersToDisplay } = props
   
