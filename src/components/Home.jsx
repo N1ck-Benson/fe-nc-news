@@ -19,9 +19,6 @@ const Home = (props) => {
         const sectionYear = Object.keys(year)[0];
         const articles = Object.values(year)[0];
         return (
-          // <ArticlesSection
-          //   articlesObj={year} updateSortBy={updateSortBy} key={Object.keys(year).join("")}
-          // />
           <section className="articles-section" key={`${sectionYear}-section`}>
             <header className="articles-header">
               <h2>{sectionYear}</h2>

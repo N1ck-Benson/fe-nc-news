@@ -1,3 +1,4 @@
+/*
 import React from 'react';
 import ArticleCard from "./ArticleCard";
 import "../App.css";
@@ -27,3 +28,4 @@ const ArticlesSection = (props) => {
 };
 
 export default ArticlesSection;
+*/

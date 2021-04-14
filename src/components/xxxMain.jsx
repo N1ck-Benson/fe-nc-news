@@ -1,3 +1,4 @@
+/*
 import { Component } from 'react';
 import { Router } from "@reach/router";
 import { fetchArticles } from '../api';
@@ -11,6 +12,7 @@ class Main extends Component {
   so that the ArticlesSections are rendered in the correct order.
   */
   // Topics is an array, but currently users can only select one topic 
+  /*
   state = {
     articlesByYear: [],
     topics: ['all'],
@@ -79,3 +81,4 @@ class Main extends Component {
 }
 
 export default Main
+*/
