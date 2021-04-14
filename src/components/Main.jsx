@@ -62,13 +62,15 @@ class Main extends Component {
     })
   };
 
+  updateSortBy = () => {}
+
   render() {
     const { isLoading, filtersToDisplay, articlesByYear } = this.state;
     const loadingClass = isLoading ? '': 'isNotLoading'
     return (
       <main>
         <Router>
-          <Home path='home/*' isLoading={isLoading} filtersToDisplay={filtersToDisplay} articlesByYear={articlesByYear} loadingClass={loadingClass} updateTopics={this.updateTopics} />
+          <Home path='home/*' isLoading={isLoading} filtersToDisplay={filtersToDisplay} articlesByYear={articlesByYear} loadingClass={loadingClass} updateTopics={this.updateTopics} updateSortBy={this.updateSortBy}/>
           <ArticlePage path='articles/:article_id' />
         </Router>
       </main>
