@@ -43,11 +43,13 @@ class ArticlePage extends Component {
   };
 
   handleClick = (event) => {
-    const { article: {article_id} } = this.state;
-    incrementVotes(article_id);
-    this.setState(currentState => {
-      return { newVotes: currentState.newVotes + 1 };
-    });
+    const { article: {article_id}, newVotes } = this.state;
+    if(newVotes < 1){
+      incrementVotes(article_id);
+      this.setState(currentState => {
+        return { newVotes: currentState.newVotes + 1 };
+      });
+    }
   };
 
   render() {
@@ -55,9 +57,10 @@ class ArticlePage extends Component {
       article: { title, author, topic, body, comment_count },
       comments,
     } = this.state;
-    let {article: {votes}, isLoading} = this.state
+    let {article: {votes}, newVotes, isLoading} = this.state
     votes += this.state.newVotes
     const loadingClass = isLoading ? "" : "isNotLoading";
+    const voterClass = newVotes < 1 ? "unclickedVoter" : "clickedVoter"
     return (
       <main className="article-page">
         <div className={loadingClass}>Loading article...</div>
@@ -73,7 +76,7 @@ class ArticlePage extends Component {
           <p>{body}</p>
           <span className="article-metadata">
             <p>
-              <button onClick={this.handleClick}>👏</button>
+              <button className={voterClass} onClick={this.handleClick}>👏</button>
               {votes}
               <span>💬 {comment_count}</span>
             </p>

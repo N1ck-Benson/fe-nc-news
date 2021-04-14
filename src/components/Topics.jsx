@@ -1,7 +1,7 @@
 import React from 'react';
 
-const Topics = (params) => {
-  const { updateTopics, filtersToDisplay } = params
+const Topics = (props) => {
+  const { updateTopics, filtersToDisplay } = props
   
   const handleSubmit = (event) => {
     event.preventDefault()

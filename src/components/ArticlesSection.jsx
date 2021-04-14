@@ -1,6 +1,5 @@
 import React from 'react';
-import ArticlesHeader from './ArticlesHeader';
-import ArticleCards from './ArticleCards';
+import ArticleCard from "./ArticleCard";
 import "../App.css";
 
 const ArticlesSection = (props) => {
@@ -10,8 +9,15 @@ const ArticlesSection = (props) => {
 
   return (
     <section className="articles-section" key={key}>
-      <ArticlesHeader sectionYear={sectionYear} />
-      <ArticleCards articles={articles} />
+      <header className="articles-header">
+        <h2>{sectionYear}</h2>
+        <nav>Order by: [criteria]</nav>
+      </header>
+      <section className="article-cards">
+        {articles.map((article) => {
+          return <ArticleCard article={article} key={article.article_id} />;
+        })}
+      </section>
     </section>
   );
 };
