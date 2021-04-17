@@ -1,4 +1,4 @@
-import getArticlesByYear from './utils'
+import {getArticlesByYear, updateOrder} from './utils'
 
 describe('getArticlesByYear', () => {
   const input = [
@@ -31,4 +31,10 @@ describe('getArticlesByYear', () => {
       });
     }
   );
+})
+
+// this updateOrder returns either the passed array ordered,
+// or if its passed a empty array it returns nothing
+describe('updateOrder', () => {
+  it('')
 })

@@ -17,3 +17,5 @@ export const getArticlesByYear = (articlesFromApi) => {
   })
   return articlesbyYear
 }
+
+export const updateOrder = () => {}

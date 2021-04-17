@@ -19,16 +19,12 @@ I've attached a checklist of everything to work through
 - [x] Basic styling added
 - [ ] Responsive design
 
-Your article cards don't work too well on a small screen as they have no minimum width and collapse really small. Giving them a `min-width` should sort that out nicely as you're already using flex.
-
 - [x] Items aligned
 - [x] Content legible (not too wide, obstructed, etc)
-- [ ] Refreshing doesn’t cause an issue on sub-pages
-- [ ] No errors in the console
+- [x] Refreshing doesn’t cause an issue on sub-pages
+- [x] No errors in the console
 
-A lot of key warnings from ArticlCards as they all use the sectionYear as the key. Consider using the article_id instead.
-
-- [ ] Votes / Posts / Deletions happen instantly _OR_ give user indication of loading
+- [x] Votes / Posts / Deletions happen instantly _OR_ give user indication of loading
 
 ## Functionality
 
@@ -38,12 +34,10 @@ A lot of key warnings from ArticlCards as they all use the sectionYear as the ke
 
 Really nice layout of the Articles by year. Your state structure is a little complex which results in you having to use object keys a lot. Nested arrays or a single object would have been easier to work with.
 
-- [ ] Can vote on articles
-- [ ] Can vote a maximum of once in either direction per page load
-- [ ] Votes are persistent when page is refreshed
-- [ ] Topic pages load only relevant articles (especially when navigating from one topic page to another)
-
-You update the state of topics but don't do anything as a result of it. This is where you should implement some componetDidUpdate logic to handle the topic change. If topics is only every going to be a singular topic why make it an array at all?
+- [x] Can vote on articles
+- [x] Can vote a maximum of once in either direction per page load
+- [x] Votes are persistent when page is refreshed
+- [x] Topic pages load only relevant articles (especially when navigating from one topic page to another)
 
 - [ ] Can sort articles by date created / comment_count / votes
 
@@ -51,17 +45,15 @@ Lovely to see you using util functions to abstract your logic but the tests are 
 
 ### Individual Article / Comments
 
-- [ ] Individual articles are served with comments
-- [ ] Can vote on comments
-- [ ] Can vote a maximum of once in either direction per page load
-- [ ] Votes are persistent when page is refreshed
-- [ ] Can post new comments, which are persistent
+- [x] Individual articles are served with comments
+- [x] Can vote a maximum of once in either direction per page load
+- [x] Votes are persistent when page is refreshed
+- [x] Can post new comments, which are persistent
 - [ ] Can only delete comments of logged in user
 - [ ] Deleted comments don’t re-appear on re-render/refresh
 
 ### Additional functionality:
 
-- [ ] sort comments by date created / votes
 - [ ] navigate over pages of articles (if implemented in back-end)
 - [ ] navigate over pages of comments (if implemented in back-end)
 - [ ] filter / display articles by specific user
@@ -90,7 +82,7 @@ Your topics component isn't controlling the state of your radio buttons. This is
 - [x] Use object destructuring where possible
 - [x] Tidy? If not: ESLint / Prettier
 - [x] `node_modules` git ignored
-- [ ] No `console.log`s / comments
-- [ ] remove unnecessary files (e.g. App.test.js)
+- [x] No `console.log`s / comments
+- [x] remove unnecessary files (e.g. App.test.js)
 
 ## MAKE SURE ALL TESTS ARE STILL PASSING IN BACK END
