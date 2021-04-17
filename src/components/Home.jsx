@@ -5,18 +5,18 @@ import Topics from "./Topics";
 import { fetchArticles } from "../api";
 import "../App.css";
 
-
 class Home extends Component {
 
   state = {
     articlesByYear: [],
     topics: ["all"],
     isLoading: true,
+    orderBy: 'date',
   };
 
   componentDidMount() {
-    const { topics } = this.state;
-    fetchArticles(topics).then((articlesFromApi) => {
+    const { topics, orderBy } = this.state;
+    fetchArticles(topics, orderBy).then((articlesFromApi) => {
       const newFiltersToDisplay = this.getTopicsFromArticles(articlesFromApi);
       this.setState({
         articlesByYear: articlesFromApi,
@@ -28,8 +28,9 @@ class Home extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     const newTopics = this.state.topics;
-    if (prevState.topics.join("") !== newTopics.join("")) {
-      fetchArticles(newTopics).then((articlesFromApi) => {
+    const newOrderBy = this.state.orderBy
+    if (prevState.topics.join("") !== newTopics.join("") || prevState.orderBy !== newOrderBy) {
+      fetchArticles(newTopics, newOrderBy).then((articlesFromApi) => {
         this.setState({
           articlesByYear: articlesFromApi,
         });
@@ -59,20 +60,30 @@ class Home extends Component {
     });
   };
 
-  updateSortBy = () => {};
+  updateSortBy = (event) => {
+    const selection = event.target.name
+    if(this.state.orderBy !== selection){
+      this.setState({orderBy: selection})
+    }
+  };
 
   render() {
     const {
       articlesByYear,
-      isLoading
+      isLoading,
+      orderBy,
     } = this.state;
     const loadingClass = isLoading ? "" : "isNotLoading";
+    const dateButtonClass = orderBy === "date" ? "clickedButton" : "unclickedButton";
+    const votesButtonClass = orderBy === "votes" ? "clickedButton" : "unclickedButton";
     return (
       <main>
         <Router>
           <Topics
-            path="/topics" getTopicsFromArticles={this.getTopicsFromArticles}
-            updateTopics={this.updateTopics} articlesByYear={articlesByYear}
+            path="/topics"
+            getTopicsFromArticles={this.getTopicsFromArticles}
+            updateTopics={this.updateTopics}
+            articlesByYear={articlesByYear}
           />
         </Router>
         <div className={loadingClass}>Loading articles...</div>
@@ -86,10 +97,24 @@ class Home extends Component {
             >
               <header className="articles-header">
                 <h2>{sectionYear}</h2>
-                <nav>
-                  Order by:
-                  <button onClick={this.updateSortBy}>Topics</button>
-                  <button>Votes</button>
+                <nav className="order-by">
+                  Ordering by:
+                  <button
+                    className={dateButtonClass}
+                    id="order-by-date"
+                    name="date"
+                    onClick={this.updateSortBy}
+                  >
+                    Date
+                  </button>
+                  <button
+                    className={votesButtonClass}
+                    id="order-by-votes"
+                    name="votes"
+                    onClick={this.updateSortBy}
+                  >
+                    Votes
+                  </button>
                 </nav>
               </header>
               <section className="article-cards">

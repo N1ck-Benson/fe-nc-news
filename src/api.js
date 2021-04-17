@@ -5,11 +5,21 @@ const instance = axios.create({
   baseURL: "https://nc-news-database.herokuapp.com/api",
 });
 
-export const fetchArticles = (topics) => {
+export const fetchArticles = (topics, orderBy) => {
   let articlesPath = '/articles'
+  let queryString = ''
   if(topics[0] !== 'all'){
-    const queryString = `?filter[topic]=${topics[0]}`
+    queryString = `?filter[topic]=${topics[0]}`
     articlesPath += queryString
+  }
+  if(orderBy !== 'date'){
+    if(queryString === ''){
+      queryString = `?sort_by=${orderBy}`
+    } else {
+      queryString = `&sort_by=${orderBy}`;
+    }
+    articlesPath += queryString;
+    console.log(articlesPath, 'articlesPath in api.js')
   }
   return instance.get(articlesPath).then(({data: {articles}}) => {
     return getArticlesByYear(articles)

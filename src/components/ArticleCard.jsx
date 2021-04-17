@@ -10,7 +10,6 @@ class ArticleCard extends Component {
 
   handleClick = (event) => {
     const { id } = event.target;
-    // api function returning 400 'bad request'
     incrementVotes(id);
     this.setState((currentState) => {
       return { newVotes: currentState.newVotes + 1 };

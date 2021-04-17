@@ -88,12 +88,12 @@ main {
   align-items: baseline;
 }
 
-.clickedVoter {
+.clickedButton {
   background-color: lightgray;
   border: 1px solid grey;
 }
 
-.unclickedVoter {
+.unclickedButton {
   background-color: white;
   border: 1px solid lightgray;
 }

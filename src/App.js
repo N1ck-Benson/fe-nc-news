@@ -1,6 +1,5 @@
 import React from 'react';
 import { Router } from "@reach/router";
-// import { fetchArticles } from "./api";
 import Home from "./components/Home";
 import ArticlePage from "./components/ArticlePage";
 import { Link } from "@reach/router";
