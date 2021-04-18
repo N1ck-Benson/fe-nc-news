@@ -23,7 +23,7 @@ main {
   grid-template-columns: 100vw;
 }
 
-.isNotLoading {
+.loadingMessage {
   display: none;
   margin-top: 50px;
 }

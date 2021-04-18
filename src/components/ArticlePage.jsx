@@ -9,7 +9,7 @@ class ArticlePage extends Component {
     newComment: {},
     newVotes: 0,
     isLoading: true,
-    isLoadingComment: false,
+    // isLoadingComment: false,
   };
 
   componentDidMount = () => {
@@ -26,7 +26,6 @@ class ArticlePage extends Component {
     }
   }
 
-  // username is currently hardcoded as 'test-user'
   // CONTROL THE INPUT - no empty field
   handleSubmit = (event) => {
     event.preventDefault();
@@ -55,15 +54,16 @@ class ArticlePage extends Component {
   render() {
     const {
       article: { title, author, topic, body, comment_count },
-      comments, 
+      comments, isLoading,
     } = this.state;
-    let {article: {votes}, newVotes, isLoading} = this.state
+    let {article: {votes}, newVotes} = this.state
     votes += this.state.newVotes
-    const loadingClass = isLoading ? "" : "isNotLoading";
+    // const loadingClass = isLoading ? "" : "isNotLoading";
     const buttonClass = newVotes < 1 ? "unclickedButton" : "clickedButton"
+    if (isLoading) return <div className='loadingMessage'>Loading article...</div>;
     return (
       <main className="article-page">
-        <div className={loadingClass}>Loading article...</div>
+        {/* <div className={loadingClass}>Loading article...</div> */}
         <article>
           <h4>{title}</h4>
           <p>
@@ -86,7 +86,7 @@ class ArticlePage extends Component {
           <input type="text" />
           <input type="submit" value="Post" />
         </form>
-        <div className={loadingClass}>Loading comments...</div>
+        {/* <div className={loadingClass}>Loading comments...</div> */}
         <section className="comments-section">
           {comments.map((comment) => {
             const { author, body, comment_id, created_at } = comment;
