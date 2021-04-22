@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import {fetchArticleAndComments} from '../api';
-import {incrementVotes, postComment} from '../api';
+import React, { Component } from "react";
+import { fetchArticleAndComments } from "../api";
+import { incrementVotes, postComment } from "../api";
 
 class ArticlePage extends Component {
   state = {
@@ -16,15 +16,19 @@ class ArticlePage extends Component {
     const path = this.props.location.pathname;
     const article_id = path.slice(path.indexOf("/", 1) + 1, path.length);
     fetchArticleAndComments(article_id).then(({ resArticle, resComments }) => {
-      this.setState({ article: resArticle, comments: resComments, isLoading: false });
+      this.setState({
+        article: resArticle,
+        comments: resComments,
+        isLoading: false,
+      });
     });
   };
 
   componentDidUpdate = (prevProps, prevState) => {
-    if(prevState.comments.join('') !== this.state.comments.join('')){
-      this.setState({isLoadingComment: false})
+    if (prevState.comments.join("") !== this.state.comments.join("")) {
+      this.setState({ isLoadingComment: false });
     }
-  }
+  };
 
   // CONTROL THE INPUT - no empty field
   handleSubmit = (event) => {
@@ -35,17 +39,20 @@ class ArticlePage extends Component {
       article: { article_id },
     } = this.state;
     postComment(article_id, comment).then((res) => {
-      const newComments = [...this.state.comments]
-      newComments.unshift(res.data.comment)
+      const newComments = [...this.state.comments];
+      newComments.unshift(res.data.comment);
       this.setState({ comments: newComments, isLoadingComment: true });
     });
   };
 
   handleClick = () => {
-    const { article: {article_id}, newVotes } = this.state;
-    if(newVotes < 1){
+    const {
+      article: { article_id },
+      newVotes,
+    } = this.state;
+    if (newVotes < 1) {
       incrementVotes(article_id);
-      this.setState(currentState => {
+      this.setState((currentState) => {
         return { newVotes: currentState.newVotes + 1 };
       });
     }
@@ -54,13 +61,18 @@ class ArticlePage extends Component {
   render() {
     const {
       article: { title, author, topic, body, comment_count },
-      comments, isLoading,
+      comments,
+      isLoading,
     } = this.state;
-    let {article: {votes}, newVotes} = this.state
-    votes += this.state.newVotes
+    let {
+      article: { votes },
+      newVotes,
+    } = this.state;
+    votes += this.state.newVotes;
     // const loadingClass = isLoading ? "" : "isNotLoading";
-    const buttonClass = newVotes < 1 ? "unclickedButton" : "clickedButton"
-    if (isLoading) return <div className='loadingMessage'>Loading article...</div>;
+    const buttonClass = newVotes < 1 ? "unclickedButton" : "clickedButton";
+    if (isLoading)
+      return <div className="loadingMessage">Loading article...</div>;
     return (
       <main className="article-page">
         {/* <div className={loadingClass}>Loading article...</div> */}
@@ -76,7 +88,9 @@ class ArticlePage extends Component {
           <p>{body}</p>
           <span className="article-metadata">
             <p>
-              <button className={buttonClass} onClick={this.handleClick}>👏</button>
+              <button className={buttonClass} onClick={this.handleClick}>
+                👏
+              </button>
               {votes}
               <span>💬 {comment_count}</span>
             </p>
@@ -90,7 +104,7 @@ class ArticlePage extends Component {
         <section className="comments-section">
           {comments.map((comment) => {
             const { author, body, comment_id, created_at } = comment;
-            
+
             // conditionally render 'other-users-comments' and 'this-users-comments'
 
             return (

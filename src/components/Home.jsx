@@ -1,17 +1,16 @@
-import React, { Component } from 'react';
-import {Router} from '@reach/router';
+import React, { Component } from "react";
+import { Router } from "@reach/router";
 import ArticleCard from "./ArticleCard";
 import Topics from "./Topics";
 import { fetchArticles } from "../api";
 import "../App.css";
 
 class Home extends Component {
-
   state = {
     articlesByYear: [],
     topics: ["all"],
     isLoading: true,
-    orderBy: 'date',
+    orderBy: "date",
   };
 
   componentDidMount() {
@@ -28,8 +27,11 @@ class Home extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     const newTopics = this.state.topics;
-    const newOrderBy = this.state.orderBy
-    if (prevState.topics.join("") !== newTopics.join("") || prevState.orderBy !== newOrderBy) {
+    const newOrderBy = this.state.orderBy;
+    if (
+      prevState.topics.join("") !== newTopics.join("") ||
+      prevState.orderBy !== newOrderBy
+    ) {
       fetchArticles(newTopics, newOrderBy).then((articlesFromApi) => {
         this.setState({
           articlesByYear: articlesFromApi,
@@ -61,21 +63,23 @@ class Home extends Component {
   };
 
   updateSortBy = (event) => {
-    const selection = event.target.name
-    if(this.state.orderBy !== selection){
-      this.setState({orderBy: selection})
+    const selection = event.target.name;
+    if (this.state.orderBy !== selection) {
+      this.setState({ orderBy: selection });
     }
   };
 
   render() {
-    const {
-      articlesByYear,
-      isLoading,
-      orderBy,
-    } = this.state;
-    const loadingClass = isLoading ? "" : "isNotLoading";
-    const dateButtonClass = orderBy === "date" ? "clickedButton" : "unclickedButton";
-    const votesButtonClass = orderBy === "votes" ? "clickedButton" : "unclickedButton";
+    const { articlesByYear, isLoading, orderBy } = this.state;
+    const dateButtonClass =
+      orderBy === "date" ? "clickedButton" : "unclickedButton";
+    const votesButtonClass =
+      orderBy === "votes" ? "clickedButton" : "unclickedButton";
+
+    if (isLoading) {
+      return <div>Just getting articles...</div>;
+    }
+
     return (
       <main>
         <Router>
@@ -86,7 +90,6 @@ class Home extends Component {
             articlesByYear={articlesByYear}
           />
         </Router>
-        <div className={loadingClass}>Loading articles...</div>
         {articlesByYear.map((year) => {
           const sectionYear = Object.keys(year)[0];
           const articles = Object.values(year)[0];
