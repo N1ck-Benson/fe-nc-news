@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 class Topics extends Component {
   state = {
@@ -6,7 +6,7 @@ class Topics extends Component {
   };
 
   componentDidMount = () => {
-    const { getTopicsFromArticles, articlesByYear } = this.props
+    const { getTopicsFromArticles, articlesByYear } = this.props;
     const topics = getTopicsFromArticles(articlesByYear);
     this.setState({ topicsToDisplay: topics });
   };
@@ -15,7 +15,7 @@ class Topics extends Component {
     event.preventDefault();
     const selectedTopics = [];
     const inputSpans = event.target.childNodes;
-    const {updateTopics} = this.props
+    const { updateTopics } = this.props;
     inputSpans.forEach((inputSpan) => {
       const input = inputSpan.childNodes[0]
         ? inputSpan.childNodes[0]
@@ -30,7 +30,7 @@ class Topics extends Component {
   };
 
   render() {
-    const {topicsToDisplay} = this.state
+    const { topicsToDisplay } = this.state;
     return (
       <section className="topics-section">
         <form onSubmit={this.handleSubmit}>

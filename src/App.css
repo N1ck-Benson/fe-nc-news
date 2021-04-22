@@ -11,7 +11,7 @@ header {
 .header-link {
   text-decoration: none;
   color: black;
-  padding: 0 10px 0 10px
+  padding: 0 10px 0 10px;
 }
 
 h1 {
@@ -21,11 +21,6 @@ h1 {
 main {
   display: grid;
   grid-template-columns: 100vw;
-}
-
-.isNotLoading {
-  display: none;
-  margin-top: 50px;
 }
 
 .topics-section {
@@ -47,7 +42,7 @@ main {
   grid-row: 1;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid green;;
+  border-bottom: 1px solid green;
 }
 
 .articles-header > nav {
