@@ -1,6 +1,25 @@
-# Getting Started with Create React App
+# NC News
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is the frontend website for NC News, a project showcasing the skills I have developed during my time on the Northcoders bootcamp.
+
+The completed backend component of this project, which serves the articles, comments and metadata displayed on the site, can be found [here](https://github.com/N1ck-Benson/be-nc-news). The hosted backend API is [here](https://nc-news-database.herokuapp.com/api), and is where you can find all the available endpoints for the project.
+
+Below is a brief outline of how to run the frontend code contained in this repo. It's a work in progress, but I'm proud of the skills I've developed and am ambitious to add new styling and functionality!
+
+## Cloning the repo and running the code
+
+In order to run the source code in this repo yourself, you'll first need to clone the repo.
+
+You'll also need to have the following dependencies installed:
+
+    Node.js
+    React
+    Knex
+    Express
+
+The minimum version of node.js required for the code to run is 15.2.0. The other dependencies and their versions are included in the package.json, so you should be able to install them by entering running npm install in your terminal.
+
+You will also need a file called knexfile.js. To create this file, you can run knex init in the terminal. The knexfile should look like this:
 
 ## Available Scripts
 
