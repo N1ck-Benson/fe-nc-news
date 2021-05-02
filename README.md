@@ -12,8 +12,6 @@ In order to run the source code in this repo yourself, you'll first need to clon
 
 You'll then need to run `yarn add` to install the required dependencies.
 
-**NB:** there is currently both a yarn.lock and a package.json in this project... please use either `yarn add` or `npm install` to download dependencies, but **do not use both!**
-
 The minimum version of node.js required for the code to run is 15.2.0.
 
 Running `yarn start` will open the project in development mode in your browser.

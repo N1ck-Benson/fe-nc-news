@@ -1,10 +1,9 @@
-import React from 'react';
+import React from "react";
 import { Router } from "@reach/router";
 import Home from "./components/Home";
 import ArticlePage from "./components/ArticlePage";
 import { Link } from "@reach/router";
 import "./App.css";
-
 
 const App = () => {
   return (
@@ -23,7 +22,7 @@ const App = () => {
         </nav>
       </header>
       <Router>
-        <Home path="home/*"/>
+        <Home path="home/*" />
         <ArticlePage path="articles/:article_id" />
       </Router>
     </main>

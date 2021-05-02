@@ -6,11 +6,13 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
+  background-color: #15658d;
+  color: white;
 }
 
 .header-link {
   text-decoration: none;
-  color: black;
+  color: white;
   padding: 0 10px 0 10px;
 }
 
@@ -21,14 +23,15 @@ h1 {
 main {
   display: grid;
   grid-template-columns: 100vw;
+  justify-content: center;
+  align-items: center;
 }
 
 .topics-section {
-  grid-area: auto;
   display: flex;
   justify-content: center;
-  align-content: center;
-  height: 120px;
+  align-items: center;
+  height: 30px;
 }
 
 .articles-section {
@@ -42,11 +45,18 @@ main {
   grid-row: 1;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid green;
+  border-bottom: 1px solid white;
+  background-color: #2a779a;
+}
+
+.articles-header > h2 {
+  color: white;
+  padding: 0px 10px 0px 10px;
 }
 
 .articles-header > nav {
   font-size: smaller;
+  padding: 0px 10px 0px 10px;
 }
 
 .article-cards {
@@ -64,7 +74,7 @@ main {
   border-radius: 10%;
   margin: 10px;
   height: 180px;
-  border: 1px solid green;
+  border: 1px solid #15658d;
 }
 
 .article-card > h4 {
