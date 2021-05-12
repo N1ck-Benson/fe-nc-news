@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Button, Classes } from "@blueprintjs/core";
 
 class Topics extends Component {
   state = {
@@ -34,19 +35,23 @@ class Topics extends Component {
     return (
       <section className="topics-section">
         <form onSubmit={this.handleSubmit}>
-          <span className="topic-radio">
+          <span className="bp3-tag filter-button">
             <input type="radio" value="all" id="all" name="radio" />
             <label htmlFor="all">all</label>
           </span>
           {topicsToDisplay.map((filter) => {
             return (
-              <span className="filter-radio">
+              <span className="bp3-tag filter-button">
                 <input type="radio" value={filter} id={filter} name="radio" />
                 <label htmlFor={filter}>{filter}</label>
               </span>
             );
           })}
-          <input type="submit" value="Filter" />
+          <div className="filter-button">
+            <Button className={Classes.MINIMAL}>
+              <input type="submit" value="Filter" />
+            </Button>
+          </div>
         </form>
       </section>
     );

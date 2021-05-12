@@ -2,25 +2,33 @@ import React from "react";
 import { Router } from "@reach/router";
 import Home from "./components/Home";
 import ArticlePage from "./components/ArticlePage";
+import {
+  Alignment,
+  Button,
+  Classes,
+  Navbar,
+  NavbarDivider,
+  NavbarGroup,
+  NavbarHeading,
+} from "@blueprintjs/core";
 import { Link } from "@reach/router";
 import "./App.css";
 
 const App = () => {
   return (
     <main className="app">
-      <header>
-        <Link to="/" className="header-link">
-          <h1>NC News</h1>
-        </Link>
-        <nav>
-          <Link to="/" className="header-link">
-            Home
+      <Navbar>
+        <NavbarGroup align={Alignment.CENTER}>
+          <NavbarHeading>NC News</NavbarHeading>
+          <NavbarDivider />
+          <Link to="/">
+            <Button className={Classes.MINIMAL} icon="home" text="Home" />
           </Link>
-          <Link to="/topics" className="header-link">
-            Topics
+          <Link to="/topics">
+            <Button className={Classes.MINIMAL} icon="document" text="Topics" />
           </Link>
-        </nav>
-      </header>
+        </NavbarGroup>
+      </Navbar>
       <Router>
         <Home path="/*" />
         <ArticlePage path="articles/:article_id" />
