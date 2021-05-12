@@ -4,7 +4,7 @@ This is the frontend website for NC News, a project showcasing the skills I have
 
 The completed backend component of this project, which serves the articles, comments and metadata displayed on the site, can be found [here](https://github.com/N1ck-Benson/be-nc-news). The hosted backend API is [here](https://nc-news-database.herokuapp.com/api), and is where you can find all the available endpoints for the project.
 
-Below is a brief outline of how to run the frontend code contained in this repo. It's a work in progress, but I'm proud of the skills I've developed and am ambitious to add new styling and functionality!
+Below is a brief outline of how to run the frontend code contained in this repo.
 
 ## Cloning the repo and running the code
 
