@@ -1,3 +1,7 @@
+@import "~normalize.css";
+@import "~@blueprintjs/core/lib/css/blueprint.css";
+@import "~@blueprintjs/icons/lib/css/blueprint-icons.css";
+
 .App {
   text-align: center;
 }
@@ -6,11 +10,13 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
+  background-color: #15658d;
+  color: white;
 }
 
 .header-link {
   text-decoration: none;
-  color: black;
+  color: white;
   padding: 0 10px 0 10px;
 }
 
@@ -21,14 +27,24 @@ h1 {
 main {
   display: grid;
   grid-template-columns: 100vw;
+  justify-content: center;
+  align-items: center;
 }
 
 .topics-section {
-  grid-area: auto;
   display: flex;
   justify-content: center;
-  align-content: center;
-  height: 120px;
+  align-items: center;
+  height: auto;
+  padding: 10px;
+}
+
+.filter-radios {
+  margin: 10px;
+}
+
+.filter-button {
+  margin: 5px;
 }
 
 .articles-section {
@@ -42,11 +58,18 @@ main {
   grid-row: 1;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid green;
+  border-bottom: 1px solid white;
+  background-color: #2a779a;
+}
+
+.articles-header > h2 {
+  color: white;
+  padding: 0px 10px 0px 10px;
 }
 
 .articles-header > nav {
   font-size: smaller;
+  padding: 0px 10px 0px 10px;
 }
 
 .article-cards {
@@ -57,14 +80,14 @@ main {
 }
 
 .article-card {
-  /* Needs a min-width to avoid shrinkage, maybe 152px (iPhone 6 width) */
   flex: 0 0 40%;
   display: flex;
   flex-direction: column;
-  border-radius: 10%;
+  justify-items: center;
+  border-radius: 10px;
   margin: 10px;
-  height: 180px;
-  border: 1px solid green;
+  height: min-content;
+  border: 1px solid #15658d;
 }
 
 .article-card > h4 {
@@ -77,18 +100,92 @@ main {
   font-size: 0.75em;
 }
 
-.article-metadata {
+article {
+  margin: 10px;
+}
+
+@media only screen and (min-width: 768px) {
+  main.article-page {
+    grid-template-columns: 60vw;
+  }
+  article {
+    justify-self: center;
+  }
+}
+
+.comments-section {
+  margin: 0 15px;
+  max-width: 525px;
+}
+
+.article-page-actions {
+  display: grid;
+  grid-template-columns: 380px 150px;
+  align-items: center;
+  margin: 20px 10px;
+  justify-items: center;
+}
+
+.article-page-action-comment {
+  grid-column: 1;
+  width: 98%;
+}
+
+.article-page-submit-button {
+  margin-left: 10px;
+  height: 21px;
+  background-color: white;
+  border: 1px solid lightgray;
+  border-radius: 10px;
+}
+
+.article-page-comment-box {
   display: flex;
-  justify-content: space-evenly;
-  align-items: baseline;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  max-width: 375px;
+}
+
+.article-page-action-buttons {
+  grid-column: 2;
+}
+
+.article-page-action-button {
+  padding: 0 7px;
+}
+
+@media only screen and (max-width: 420px) {
+  .article-page-actions {
+    grid-template-columns: 100%;
+  }
+  .article-page-action-buttons {
+    grid-column: 1;
+    margin: 10px;
+  }
 }
 
 .clickedButton {
   background-color: lightgray;
   border: 1px solid grey;
+  border-radius: 10px;
+  margin: 0 5px;
 }
 
 .unclickedButton {
   background-color: white;
   border: 1px solid lightgray;
+  border-radius: 10px;
+  margin: 0 5px;
+}
+
+.read-icon {
+  display: flex;
+  justify-content: right;
+  margin: auto 5px 5px 5px;
+}
+
+.read-icon > img {
+  height: 30px;
+  width: auto;
 }

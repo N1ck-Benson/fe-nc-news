@@ -1,49 +1,31 @@
-import React, { Component } from "react";
+import React from "react";
 import { Link } from "@reach/router";
-import { incrementVotes } from "../api";
 
-class ArticleCard extends Component {
-  state = {
-    newVotes: 0,
-  };
-
-  handleClick = (event) => {
-    const { id } = event.target;
-    incrementVotes(id);
-    this.setState((currentState) => {
-      return { newVotes: currentState.newVotes + 1 };
-    });
-  };
-
-  render() {
-    const {
-      article: { title, author, topic, votes, article_id, comment_count },
-      key,
-    } = this.props;
-    return (
-      <figure className="article-card" key={key}>
-        <h4>{title}</h4>
-        <p>
-          <em>by</em> {author}
-          <br />
-          <em>in</em> {topic}
-          <br />
-        </p>
-        <Link to={`/articles/${article_id}`}>👓</Link>
+const ArticleCard = (props) => {
+  const {
+    article: { title, author, topic, article_id, created_at },
+    key,
+  } = props;
+  const createdAtTrimmed = created_at.slice(0, created_at.indexOf("T"));
+  return (
+    <figure className="article-card" key={key}>
+      <h4>{title}</h4>
+      <p>
+        <em>by</em> {author}
         <br />
-        <span className="article-metadata">
-          <p>
-            <button onClick={this.handleClick} id={article_id}>
-              👏
-            </button>
-            {votes}
-            <Link to={`/articles/${article_id}#comment-box`}>💬</Link>
-            {comment_count}
-          </p>
-        </span>
-      </figure>
-    );
-  }
-}
+        <em>in</em> {topic}
+        <br />
+        {createdAtTrimmed}
+      </p>
+      <Link className="read-icon" to={`/articles/${article_id}`}>
+        <img
+          alt="Read"
+          title="Read"
+          src="https://cdn2.iconfinder.com/data/icons/mix-color-5/100/Mix_color_5__glasses-512.png"
+        />
+      </Link>
+    </figure>
+  );
+};
 
 export default ArticleCard;
