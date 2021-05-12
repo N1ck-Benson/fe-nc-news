@@ -70,7 +70,6 @@ class ArticlePage extends Component {
     } = this.state;
     votes += this.state.newVotes;
     const buttonClass = newVotes < 1 ? "unclickedButton" : "clickedButton";
-    console.log(isLoadingComment, "<<< isloading comment");
     if (isLoading) {
       return <div>Loading article...</div>;
     } else {
@@ -104,17 +103,14 @@ class ArticlePage extends Component {
           <section className="comments-section">
             {comments.map((comment) => {
               const { author, body, comment_id, created_at } = comment;
-
-              // conditionally render 'other-users-comments' and 'this-users-comments'
-
+              const createdAtTrimmed = created_at.slice(
+                0,
+                created_at.indexOf("T")
+              );
               return (
-                <div
-                  className="other-users-comments"
-                  key={`comment_${comment_id}`}
-                >
+                <div key={`comment_${comment_id}`}>
                   <p>
-                    <span>{created_at}</span>
-                    <span>{author}</span>
+                    <span>{`${author} | ${createdAtTrimmed}`}</span>
                   </p>
                   <p>{body}</p>
                 </div>
