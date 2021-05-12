@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Button, Classes } from "@blueprintjs/core";
 
 class Topics extends Component {
   state = {
@@ -48,9 +47,7 @@ class Topics extends Component {
             );
           })}
           <div className="filter-button">
-            <Button className={Classes.MINIMAL}>
-              <input type="submit" value="Filter" />
-            </Button>
+            <input type="submit" value="Filter" />
           </div>
         </form>
       </section>

@@ -1,15 +1,16 @@
 import React, { Component } from "react";
 import { fetchArticleAndComments } from "../api";
 import { incrementVotes, postComment } from "../api";
+import { Card, Divider, Icon, Text, TextArea } from "@blueprintjs/core";
 
 class ArticlePage extends Component {
   state = {
     article: {},
     comments: [],
-    newComment: {},
     newVotes: 0,
     isLoading: true,
     isLoadingComment: true,
+    newComment: "",
   };
 
   componentDidMount = () => {
@@ -30,17 +31,34 @@ class ArticlePage extends Component {
     }
   };
 
+  onInputChange = ({ nativeEvent: { inputType, data } }) => {
+    let input = this.state.newComment;
+    if (data) {
+      input = input + data;
+    } else if (inputType === "insertLineBreak") {
+      input = input + "\n";
+    } else if (inputType === "deleteContentBackward") {
+      input = input.slice(0, -1);
+    } else if (inputType === "deleteSoftLineBackward") {
+      input = "";
+    }
+    this.setState({ newComment: input });
+  };
+
   handleSubmit = (event) => {
     event.preventDefault();
-    const { value } = event.target.firstChild;
-    const comment = { username: "jessjelly", body: value };
+    const comment = { username: "jessjelly", body: this.state.newComment };
     const {
       article: { article_id },
     } = this.state;
     postComment(article_id, comment).then((res) => {
       const newComments = [...this.state.comments];
       newComments.unshift(res.data.comment);
-      this.setState({ comments: newComments, isLoadingComment: true });
+      this.setState({
+        comments: newComments,
+        isLoadingComment: true,
+        newComment: "",
+      });
     });
   };
 
@@ -63,6 +81,7 @@ class ArticlePage extends Component {
       comments,
       isLoading,
       isLoadingComment,
+      newComment,
     } = this.state;
     let {
       article: { votes },
@@ -83,24 +102,51 @@ class ArticlePage extends Component {
               <em>in</em> {topic}
               <br />
             </p>
+            <Divider />
             <br />
             <p>{body}</p>
-            <span className="article-metadata">
-              <p>
+            <Divider />
+          </article>
+
+          <div className="article-page-actions">
+            <span className="article-page-action-comment">
+              <form
+                className="article-page-comment-box"
+                onSubmit={this.handleSubmit}
+                id="comment-box"
+              >
+                <Text ellipsize={true} />
+                <TextArea
+                  fill={true}
+                  onChange={this.onInputChange}
+                  value={newComment}
+                />
+                <input
+                  className="article-page-submit-button"
+                  type="submit"
+                  value="Post"
+                />
+              </form>
+            </span>
+            <span className="article-page-action-buttons">
+              <span className="article-page-action-button">
+                {" "}
+                <Icon icon="comment" />
+                &nbsp;
+                {comment_count}
+              </span>
+              <span className="article-page-action-button">
                 <button className={buttonClass} onClick={this.handleClick}>
                   👏
                 </button>
+                &nbsp;
                 {votes}
-                <span>💬 {comment_count}</span>
-              </p>
+              </span>
             </span>
-          </article>
-          <form onSubmit={this.handleSubmit} id="comment-box">
-            <input type="text" />
-            <input type="submit" value="Post" />
-          </form>
-          <div>{isLoadingComment && <p>Loading comments...</p>}</div>
+          </div>
           <section className="comments-section">
+            <div>{isLoadingComment && <p>Loading comments...</p>}</div>
+
             {comments.map((comment) => {
               const { author, body, comment_id, created_at } = comment;
               const createdAtTrimmed = created_at.slice(
@@ -108,12 +154,13 @@ class ArticlePage extends Component {
                 created_at.indexOf("T")
               );
               return (
-                <div key={`comment_${comment_id}`}>
+                <Card key={`comment_${comment_id}`}>
                   <p>
                     <span>{`${author} | ${createdAtTrimmed}`}</span>
                   </p>
                   <p>{body}</p>
-                </div>
+                  {/* <Divider /> */}
+                </Card>
               );
             })}
           </section>

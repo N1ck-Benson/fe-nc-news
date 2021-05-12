@@ -19,7 +19,8 @@ const ArticleCard = (props) => {
       </p>
       <Link className="read-icon" to={`/articles/${article_id}`}>
         <img
-          alt="read"
+          alt="Read"
+          title="Read"
           src="https://cdn2.iconfinder.com/data/icons/mix-color-5/100/Mix_color_5__glasses-512.png"
         />
       </Link>
