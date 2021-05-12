@@ -9,7 +9,7 @@ class ArticlePage extends Component {
     newComment: {},
     newVotes: 0,
     isLoading: true,
-    // isLoadingComment: false,
+    isLoadingComment: false,
   };
 
   componentDidMount = () => {
@@ -30,7 +30,6 @@ class ArticlePage extends Component {
     }
   };
 
-  // CONTROL THE INPUT - no empty field
   handleSubmit = (event) => {
     event.preventDefault();
     const { value } = event.target.firstChild;
