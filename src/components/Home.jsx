@@ -100,8 +100,8 @@ class Home extends Component {
             >
               <header className="articles-header">
                 <h2>{sectionYear}</h2>
-                <nav className="order-by">
-                  Ordering by:
+                <nav>
+                  Order by: &nbsp;
                   <button
                     className={dateButtonClass}
                     id="order-by-date"

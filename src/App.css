@@ -80,13 +80,13 @@ main {
 }
 
 .article-card {
-  /* Needs a min-width to avoid shrinkage, maybe 152px (iPhone 6 width) */
   flex: 0 0 40%;
   display: flex;
   flex-direction: column;
-  border-radius: 10%;
+  justify-items: center;
+  border-radius: 10px;
   margin: 10px;
-  height: 180px;
+  height: min-content;
   border: 1px solid #15658d;
 }
 
@@ -114,4 +114,15 @@ main {
 .unclickedButton {
   background-color: white;
   border: 1px solid lightgray;
+}
+
+.read-icon {
+  display: flex;
+  justify-content: right;
+  margin: auto 5px 5px 5px;
+}
+
+.read-icon > img {
+  height: 30px;
+  width: auto;
 }

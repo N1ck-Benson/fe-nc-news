@@ -17,7 +17,12 @@ const ArticleCard = (props) => {
         <br />
         {createdAtTrimmed}
       </p>
-      <Link to={`/articles/${article_id}`}>👓</Link>
+      <Link className="read-icon" to={`/articles/${article_id}`}>
+        <img
+          alt="read"
+          src="https://cdn2.iconfinder.com/data/icons/mix-color-5/100/Mix_color_5__glasses-512.png"
+        />
+      </Link>
     </figure>
   );
 };
