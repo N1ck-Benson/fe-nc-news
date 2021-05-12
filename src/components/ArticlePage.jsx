@@ -9,7 +9,7 @@ class ArticlePage extends Component {
     newComment: {},
     newVotes: 0,
     isLoading: true,
-    isLoadingComment: false,
+    isLoadingComment: true,
   };
 
   componentDidMount = () => {
@@ -62,66 +62,68 @@ class ArticlePage extends Component {
       article: { title, author, topic, body, comment_count },
       comments,
       isLoading,
+      isLoadingComment,
     } = this.state;
     let {
       article: { votes },
       newVotes,
     } = this.state;
     votes += this.state.newVotes;
-    // const loadingClass = isLoading ? "" : "isNotLoading";
     const buttonClass = newVotes < 1 ? "unclickedButton" : "clickedButton";
-    if (isLoading)
-      return <div className="loadingMessage">Loading article...</div>;
-    return (
-      <main className="article-page">
-        {/* <div className={loadingClass}>Loading article...</div> */}
-        <article>
-          <h4>{title}</h4>
-          <p>
-            <em>by</em> {author}
-            <br />
-            <em>in</em> {topic}
-            <br />
-          </p>
-          <br />
-          <p>{body}</p>
-          <span className="article-metadata">
+    console.log(isLoadingComment, "<<< isloading comment");
+    if (isLoading) {
+      return <div>Loading article...</div>;
+    } else {
+      return (
+        <main className="article-page">
+          <article>
+            <h4>{title}</h4>
             <p>
-              <button className={buttonClass} onClick={this.handleClick}>
-                👏
-              </button>
-              {votes}
-              <span>💬 {comment_count}</span>
+              <em>by</em> {author}
+              <br />
+              <em>in</em> {topic}
+              <br />
             </p>
-          </span>
-        </article>
-        <form onSubmit={this.handleSubmit} id="comment-box">
-          <input type="text" />
-          <input type="submit" value="Post" />
-        </form>
-        {/* <div className={loadingClass}>Loading comments...</div> */}
-        <section className="comments-section">
-          {comments.map((comment) => {
-            const { author, body, comment_id, created_at } = comment;
+            <br />
+            <p>{body}</p>
+            <span className="article-metadata">
+              <p>
+                <button className={buttonClass} onClick={this.handleClick}>
+                  👏
+                </button>
+                {votes}
+                <span>💬 {comment_count}</span>
+              </p>
+            </span>
+          </article>
+          <form onSubmit={this.handleSubmit} id="comment-box">
+            <input type="text" />
+            <input type="submit" value="Post" />
+          </form>
+          <div>{isLoadingComment && <p>Loading comments...</p>}</div>
+          <section className="comments-section">
+            {comments.map((comment) => {
+              const { author, body, comment_id, created_at } = comment;
 
-            // conditionally render 'other-users-comments' and 'this-users-comments'
+              // conditionally render 'other-users-comments' and 'this-users-comments'
 
-            return (
-              <div
-                className="other-users-comments"
-                key={`comment_${comment_id}`}
-              >
-                <p>
-                  <span>{created_at}</span>
-                  <span>{author}</span>
-                </p>
-                <p>{body}</p>
-              </div>
-            );
-          })}
-        </section>
-      </main>
-    );
+              return (
+                <div
+                  className="other-users-comments"
+                  key={`comment_${comment_id}`}
+                >
+                  <p>
+                    <span>{created_at}</span>
+                    <span>{author}</span>
+                  </p>
+                  <p>{body}</p>
+                </div>
+              );
+            })}
+          </section>
+        </main>
+      );
+    }
   }
 }
 
