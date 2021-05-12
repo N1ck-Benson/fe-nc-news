@@ -104,6 +104,15 @@ article {
   margin: 10px;
 }
 
+@media only screen and (min-width: 768px) {
+  main.article-page {
+    grid-template-columns: 60vw;
+  }
+  article {
+    justify-self: center;
+  }
+}
+
 .comments-section {
   margin: 0 15px;
   max-width: 525px;
