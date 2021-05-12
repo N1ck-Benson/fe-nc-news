@@ -3,7 +3,7 @@ import { Router } from "@reach/router";
 import ArticleCard from "./ArticleCard";
 import Topics from "./Topics";
 import { fetchArticles } from "../api";
-import "../App.css";
+import { Spinner, SpinnerSize } from "@blueprintjs/core";
 
 class Home extends Component {
   state = {
@@ -76,11 +76,11 @@ class Home extends Component {
     const votesButtonClass =
       orderBy === "votes" ? "clickedButton" : "unclickedButton";
 
-    if (isLoading) {
-      return <div>Just getting articles...</div>;
-    }
-
-    return (
+    return isLoading ? (
+      <main>
+        <Spinner size={SpinnerSize.STANDARD} />
+      </main>
+    ) : (
       <main>
         <Router>
           <Topics

@@ -1,7 +1,15 @@
 import React, { Component } from "react";
 import { fetchArticleAndComments } from "../api";
 import { incrementVotes, postComment } from "../api";
-import { Card, Divider, Icon, Text, TextArea } from "@blueprintjs/core";
+import {
+  Card,
+  Divider,
+  Icon,
+  Spinner,
+  SpinnerSize,
+  Text,
+  TextArea,
+} from "@blueprintjs/core";
 
 class ArticlePage extends Component {
   state = {
@@ -89,65 +97,62 @@ class ArticlePage extends Component {
     } = this.state;
     votes += this.state.newVotes;
     const buttonClass = newVotes < 1 ? "unclickedButton" : "clickedButton";
-    if (isLoading) {
-      return <div>Loading article...</div>;
-    } else {
-      return (
-        <main className="article-page">
-          <article>
-            <h4>{title}</h4>
-            <p>
-              <em>by</em> {author}
-              <br />
-              <em>in</em> {topic}
-              <br />
-            </p>
-            <Divider />
+    return (
+      <main className="article-page">
+        <article>
+          <h4>{title}</h4>
+          <p>
+            <em>by</em> {author}
             <br />
-            <p>{body}</p>
-            <Divider />
-          </article>
-
-          <div className="article-page-actions">
-            <span className="article-page-action-comment">
-              <form
-                className="article-page-comment-box"
-                onSubmit={this.handleSubmit}
-                id="comment-box"
-              >
-                <Text ellipsize={true} />
-                <TextArea
-                  fill={true}
-                  onChange={this.onInputChange}
-                  value={newComment}
-                />
-                <input
-                  className="article-page-submit-button"
-                  type="submit"
-                  value="Post"
-                />
-              </form>
+            <em>in</em> {topic}
+            <br />
+          </p>
+          <Divider />
+          <br />
+          {isLoading ? <Spinner size={SpinnerSize.STANDARD} /> : <p>{body}</p>}
+          <Divider />
+        </article>
+        <div className="article-page-actions">
+          <span className="article-page-action-comment">
+            <form
+              className="article-page-comment-box"
+              onSubmit={this.handleSubmit}
+              id="comment-box"
+            >
+              <Text ellipsize={true} />
+              <TextArea
+                fill={true}
+                onChange={this.onInputChange}
+                value={newComment}
+              />
+              <input
+                className="article-page-submit-button"
+                type="submit"
+                value="Post"
+              />
+            </form>
+          </span>
+          <span className="article-page-action-buttons">
+            <span className="article-page-action-button">
+              {" "}
+              <Icon icon="comment" />
+              &nbsp;
+              {comment_count}
             </span>
-            <span className="article-page-action-buttons">
-              <span className="article-page-action-button">
-                {" "}
-                <Icon icon="comment" />
-                &nbsp;
-                {comment_count}
-              </span>
-              <span className="article-page-action-button">
-                <button className={buttonClass} onClick={this.handleClick}>
-                  👏
-                </button>
-                &nbsp;
-                {votes}
-              </span>
+            <span className="article-page-action-button">
+              <button className={buttonClass} onClick={this.handleClick}>
+                👏
+              </button>
+              &nbsp;
+              {votes}
             </span>
-          </div>
-          <section className="comments-section">
-            <div>{isLoadingComment && <p>Loading comments...</p>}</div>
-
-            {comments.map((comment) => {
+          </span>
+        </div>
+        <section className="comments-section">
+          {isLoadingComment ? (
+            <Spinner size={SpinnerSize.STANDARD} />
+          ) : (
+            comments.map((comment) => {
               const { author, body, comment_id, created_at } = comment;
               const createdAtTrimmed = created_at.slice(
                 0,
@@ -159,14 +164,13 @@ class ArticlePage extends Component {
                     <span>{`${author} | ${createdAtTrimmed}`}</span>
                   </p>
                   <p>{body}</p>
-                  {/* <Divider /> */}
                 </Card>
               );
-            })}
-          </section>
-        </main>
-      );
-    }
+            })
+          )}
+        </section>
+      </main>
+    );
   }
 }
 
