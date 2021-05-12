@@ -21,9 +21,8 @@ const App = () => {
           </Link>
         </nav>
       </header>
-      <Home />
       <Router>
-        <Home path="/" />
+        <Home path="/*" />
         <ArticlePage path="articles/:article_id" />
       </Router>
     </main>
