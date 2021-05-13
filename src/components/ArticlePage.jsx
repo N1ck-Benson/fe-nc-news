@@ -55,7 +55,10 @@ class ArticlePage extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    const comment = { username: "jessjelly", body: this.state.newComment };
+    const comment = {
+      username: this.props.username,
+      body: this.state.newComment,
+    };
     const {
       article: { article_id },
     } = this.state;
@@ -100,11 +103,11 @@ class ArticlePage extends Component {
     return (
       <main className="article-page">
         <article>
-          <h4>{title}</h4>
+          <h2>{title}</h2>
           <p>
-            <em>by</em> {author}
-            <br />
-            <em>in</em> {topic}
+            <em>by</em> <span className="highlighted-text">{author}</span>{" "}
+            &nbsp;
+            <em>in</em> <span className="highlighted-text">{topic}</span>
             <br />
           </p>
           <Divider />

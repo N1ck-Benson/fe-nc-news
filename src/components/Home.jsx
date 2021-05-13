@@ -81,7 +81,7 @@ class Home extends Component {
         <Spinner size={SpinnerSize.STANDARD} />
       </main>
     ) : (
-      <main>
+      <main className="articles-page">
         <Router>
           <Topics
             path="/topics"

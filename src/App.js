@@ -15,10 +15,12 @@ import { Link } from "@reach/router";
 import "./App.css";
 
 const App = () => {
+  const username = "Default";
+
   return (
     <main className="app">
-      <Navbar>
-        <NavbarGroup align={Alignment.CENTER}>
+      <Navbar fixedToTop="true">
+        <NavbarGroup align={Alignment.LEFT}>
           <NavbarHeading>NC News</NavbarHeading>
           <NavbarDivider />
           <Link to="/">
@@ -27,8 +29,17 @@ const App = () => {
           <Link to="/topics">
             <Button className={Classes.MINIMAL} icon="document" text="Topics" />
           </Link>
+          <Button className={Classes.MINIMAL} icon="id-number" />
+          {username ? (
+            <span>
+              Signed in as <span className="highlighted-text">{username}</span>
+            </span>
+          ) : (
+            <span>Sign in</span>
+          )}
         </NavbarGroup>
       </Navbar>
+      <div className="header-space" />
       <Router>
         <Home path="/*" />
         <ArticlePage path="articles/:article_id" />
