@@ -31,8 +31,9 @@ const App = () => {
           </Link>
           <Button className={Classes.MINIMAL} icon="id-number" />
           {username ? (
-            <span>
-              Signed in as <span className="highlighted-text">{username}</span>
+            <span className="signed-in">
+              Signed in as &nbsp;
+              <span className="highlighted-text">{username}</span>
             </span>
           ) : (
             <span>Sign in</span>

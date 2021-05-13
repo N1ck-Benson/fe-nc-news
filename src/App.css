@@ -2,10 +2,6 @@
 @import "~@blueprintjs/core/lib/css/blueprint.css";
 @import "~@blueprintjs/icons/lib/css/blueprint-icons.css";
 
-/* html {
-  background-image: url("./nc-news-background.png");
-} */
-
 .App {
   text-align: center;
 }
@@ -219,6 +215,9 @@ article > h2 {
 }
 
 @media only screen and (max-width: 420px) {
+  .signed-in {
+    display: none;
+  }
   .article-page-actions {
     grid-template-columns: 100%;
   }
