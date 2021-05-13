@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import { fetchArticleAndComments } from "../api";
-import { incrementVotes, postComment } from "../api";
+import { incrementVotes, postComment, deleteComment } from "../api";
 import {
+  Button,
   Card,
+  Classes,
   Divider,
   Icon,
   Spinner,
@@ -19,6 +21,7 @@ class ArticlePage extends Component {
     isLoading: true,
     isLoadingComment: true,
     newComment: "",
+    commentsDeleted: [],
   };
 
   componentDidMount = () => {
@@ -73,16 +76,26 @@ class ArticlePage extends Component {
     });
   };
 
-  handleClick = () => {
-    const {
-      article: { article_id },
-      newVotes,
-    } = this.state;
-    if (newVotes < 1) {
-      incrementVotes(article_id);
-      this.setState((currentState) => {
-        return { newVotes: currentState.newVotes + 1 };
-      });
+  handleClick = ({ target: { name, id } }) => {
+    if (name === "vote") {
+      const {
+        article: { article_id },
+        newVotes,
+      } = this.state;
+      if (newVotes < 1) {
+        incrementVotes(article_id);
+        this.setState((currentState) => {
+          return { newVotes: currentState.newVotes + 1 };
+        });
+      }
+    } else {
+      const commentId = parseInt(id.slice(7));
+      const newCommentsDeleted = [...this.state.commentsDeleted];
+      console.log(this.state.commentsDeleted, "#1");
+      newCommentsDeleted.push(commentId);
+      deleteComment(commentId);
+      this.setState({ commentsDeleted: newCommentsDeleted });
+      console.log(this.state.commentsDeleted, "#2");
     }
   };
 
@@ -143,7 +156,11 @@ class ArticlePage extends Component {
               {comment_count}
             </span>
             <span className="article-page-action-button">
-              <button className={buttonClass} onClick={this.handleClick}>
+              <button
+                className={buttonClass}
+                onClick={this.handleClick}
+                name="vote"
+              >
                 👏
               </button>
               &nbsp;
@@ -157,18 +174,32 @@ class ArticlePage extends Component {
           ) : (
             comments.map((comment) => {
               const { author, body, comment_id, created_at } = comment;
-              const createdAtTrimmed = created_at.slice(
-                0,
-                created_at.indexOf("T")
-              );
-              return (
-                <Card key={`comment_${comment_id}`}>
-                  <p>
-                    <span>{`${author} | ${createdAtTrimmed}`}</span>
-                  </p>
-                  <p>{body}</p>
-                </Card>
-              );
+              if (!this.state.commentsDeleted.includes(comment_id)) {
+                const createdAtTrimmed = created_at.slice(
+                  0,
+                  created_at.indexOf("T")
+                );
+                const deletePlusId = "delete_" + comment_id;
+                return (
+                  <Card key={`comment_${comment_id}`} className="comment-card">
+                    <section>
+                      <p>
+                        <span>{`${author} | ${createdAtTrimmed}`}</span>
+                      </p>
+                      <p>{body}</p>
+                    </section>
+                    {author === this.props.username && (
+                      <Button
+                        className={Classes.MINIMAL}
+                        intent="danger"
+                        icon="eraser"
+                        onClick={this.handleClick}
+                        id={deletePlusId}
+                      />
+                    )}
+                  </Card>
+                );
+              }
             })
           )}
         </section>

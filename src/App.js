@@ -15,7 +15,7 @@ import { Link } from "@reach/router";
 import "./App.css";
 
 const App = () => {
-  const username = "Default";
+  const username = "jessjelly";
 
   return (
     <main className="app">
@@ -43,7 +43,7 @@ const App = () => {
       <div className="header-space" />
       <Router>
         <Home path="/*" />
-        <ArticlePage path="articles/:article_id" />
+        <ArticlePage path="articles/:article_id" username={username} />
       </Router>
     </main>
   );

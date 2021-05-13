@@ -177,6 +177,11 @@ article > h2 {
   max-width: 525px;
 }
 
+.comment-card {
+  display: grid;
+  grid-template-columns: 95% 5%;
+}
+
 .article-page-actions {
   display: grid;
   grid-template-columns: 380px 150px;
