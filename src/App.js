@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Router } from "@reach/router";
 import Home from "./components/Home";
 import ArticlePage from "./components/ArticlePage";
