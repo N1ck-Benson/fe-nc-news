@@ -132,14 +132,16 @@ main {
 .vote-count {
   grid-column: 1;
   display: flex;
-  justify-content: left;
+  justify-self: left;
+  width: 40px;
   margin: auto 5px 10px 10px;
 }
 
 .read-icon {
   grid-column: 2;
   display: flex;
-  justify-content: right;
+  justify-self: right;
+  width: 30px;
   margin: auto 5px 5px 5px;
 }
 

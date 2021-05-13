@@ -19,7 +19,7 @@ const ArticleCard = (props) => {
       </p>
       <footer className="article-card-footer">
         <span className="vote-count">
-          👏
+          👏 &nbsp;
           {votes}
         </span>
         <Link className="read-icon" to={`/articles/${article_id}`}>
