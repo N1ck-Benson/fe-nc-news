@@ -15,7 +15,7 @@ import { Link } from "@reach/router";
 import "./App.css";
 
 const App = () => {
-  const [username, setUsername] = useState("Default");
+  const username = "Default";
 
   return (
     <main className="app">
