@@ -17,7 +17,7 @@ import "./App.css";
 const App = () => {
   return (
     <main className="app">
-      <Navbar>
+      <Navbar fixedToTop="true">
         <NavbarGroup align={Alignment.CENTER}>
           <NavbarHeading>NC News</NavbarHeading>
           <NavbarDivider />
@@ -29,6 +29,7 @@ const App = () => {
           </Link>
         </NavbarGroup>
       </Navbar>
+      <div className="header-space" />
       <Router>
         <Home path="/*" />
         <ArticlePage path="articles/:article_id" />

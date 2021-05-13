@@ -100,11 +100,11 @@ class ArticlePage extends Component {
     return (
       <main className="article-page">
         <article>
-          <h4>{title}</h4>
+          <h2>{title}</h2>
           <p>
-            <em>by</em> {author}
-            <br />
-            <em>in</em> {topic}
+            <em>by</em> <span className="highlighted-text">{author}</span>{" "}
+            &nbsp;
+            <em>in</em> <span className="highlighted-text">{topic}</span>
             <br />
           </p>
           <Divider />

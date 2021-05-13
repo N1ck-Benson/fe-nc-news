@@ -2,6 +2,10 @@
 @import "~@blueprintjs/core/lib/css/blueprint.css";
 @import "~@blueprintjs/icons/lib/css/blueprint-icons.css";
 
+/* html {
+  background-image: url("./nc-news-background.png");
+} */
+
 .App {
   text-align: center;
 }
@@ -12,6 +16,10 @@ header {
   align-items: baseline;
   background-color: #15658d;
   color: white;
+}
+
+.header-space {
+  height: 50px;
 }
 
 .header-link {
@@ -29,6 +37,10 @@ main {
   grid-template-columns: 100vw;
   justify-content: center;
   align-items: center;
+}
+
+.articles-page {
+  background-image: url("./background-image.png");
 }
 
 .topics-section {
@@ -49,15 +61,25 @@ main {
 
 .articles-section {
   grid-area: auto;
+  justify-self: center;
   display: grid;
   grid-template-rows: 50px auto;
   grid-template-columns: 100vw;
+  background-color: white;
+}
+
+@media only screen and (min-width: 768px) {
+  .articles-section {
+    grid-template-columns: 65vw;
+    box-shadow: 0 0 3px grey;
+  }
 }
 
 .articles-header {
   grid-row: 1;
   justify-content: space-between;
   align-items: center;
+  padding: 0 13px;
   border-bottom: 1px solid white;
   background-color: #2a779a;
 }
@@ -83,11 +105,11 @@ main {
   flex: 0 0 40%;
   display: flex;
   flex-direction: column;
-  justify-items: center;
-  border-radius: 10px;
-  margin: 10px;
   height: min-content;
-  border: 1px solid #15658d;
+  max-width: 400px;
+  margin: 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 4px #15658d;
 }
 
 .article-card > h4 {
@@ -100,12 +122,50 @@ main {
   font-size: 0.75em;
 }
 
+.article-card-footer {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  align-items: center;
+  padding: auto 5px auto 5px;
+}
+
+.vote-count {
+  grid-column: 1;
+  display: flex;
+  justify-content: left;
+  margin: auto 5px 10px 10px;
+}
+
+.read-icon {
+  grid-column: 2;
+  display: flex;
+  justify-content: right;
+  margin: auto 5px 5px 5px;
+}
+
+.read-icon > img {
+  height: 30px;
+  width: auto;
+}
+
 article {
   margin: 10px;
 }
 
+article > h2 {
+  color: #15658d;
+}
+
+.highlighted-text {
+  background-color: #15658d;
+  color: white;
+  max-width: min-content;
+  padding: 1px;
+  margin: 1px 0 1px 0;
+}
+
 @media only screen and (min-width: 768px) {
-  main.article-page {
+  .article-page {
     grid-template-columns: 60vw;
   }
   article {
@@ -133,7 +193,7 @@ article {
 
 .article-page-submit-button {
   margin-left: 10px;
-  height: 21px;
+  height: 25px;
   background-color: white;
   border: 1px solid lightgray;
   border-radius: 10px;
@@ -165,27 +225,19 @@ article {
   }
 }
 
+.clickedButton,
+.unclickedButton {
+  height: 25px;
+  border-radius: 10px;
+  margin: 0 5px;
+}
+
 .clickedButton {
   background-color: lightgray;
   border: 1px solid grey;
-  border-radius: 10px;
-  margin: 0 5px;
 }
 
 .unclickedButton {
   background-color: white;
   border: 1px solid lightgray;
-  border-radius: 10px;
-  margin: 0 5px;
-}
-
-.read-icon {
-  display: flex;
-  justify-content: right;
-  margin: auto 5px 5px 5px;
-}
-
-.read-icon > img {
-  height: 30px;
-  width: auto;
 }
