@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Router } from "@reach/router";
 import Home from "./components/Home";
 import ArticlePage from "./components/ArticlePage";
@@ -15,10 +15,12 @@ import { Link } from "@reach/router";
 import "./App.css";
 
 const App = () => {
+  const [username, setUsername] = useState("Default");
+
   return (
     <main className="app">
       <Navbar fixedToTop="true">
-        <NavbarGroup align={Alignment.CENTER}>
+        <NavbarGroup align={Alignment.LEFT}>
           <NavbarHeading>NC News</NavbarHeading>
           <NavbarDivider />
           <Link to="/">
@@ -27,6 +29,14 @@ const App = () => {
           <Link to="/topics">
             <Button className={Classes.MINIMAL} icon="document" text="Topics" />
           </Link>
+          <Button className={Classes.MINIMAL} icon="id-number" />
+          {username ? (
+            <span>
+              Signed in as <span className="highlighted-text">{username}</span>
+            </span>
+          ) : (
+            <span>Sign in</span>
+          )}
         </NavbarGroup>
       </Navbar>
       <div className="header-space" />

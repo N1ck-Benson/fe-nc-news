@@ -55,7 +55,10 @@ class ArticlePage extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    const comment = { username: "jessjelly", body: this.state.newComment };
+    const comment = {
+      username: this.props.username,
+      body: this.state.newComment,
+    };
     const {
       article: { article_id },
     } = this.state;
